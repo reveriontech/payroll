@@ -1,5 +1,4 @@
 import { useState, useMemo } from 'react'
-// import {useState, useMemo} from 'react'
 import '../styles/pages/_calculate.scss'
 import Button from '../utils/Button'
 
@@ -76,7 +75,7 @@ const Calculate = () => {
                 {/* This div is for left side */}
                 <div className='container-left'>
 
-                    <h4>Employee Information</h4>
+                    <h4>Information</h4>
 
                     {/* For select */}
                     <div className='select-employee'>
@@ -93,20 +92,20 @@ const Calculate = () => {
 
                         <div className='select-start'>
                             <label>Pay Period Start</label>
-                            <input type="date" name="start" title='Pay Period Start' onChange={handlePayPeriodChange} />
+                            <input type="date" name="start" placeholder='Pay Period Start' onChange={handlePayPeriodChange} />
                         </div>
 
                         {/* For select END period */}
                         <div className='select-end'>
                             <label>Pay Period End</label>
-                            <input type="date" name="end" title='Pay Period End' onChange={handlePayPeriodChange} />
+                            <input type="date" name="end" placeholder='Pay Period End' onChange={handlePayPeriodChange} />
                        </div>
 
                         {/* For working days */}
 
                         <div className='working-days'>
                             <label>Working Days</label>
-                            <input type="number" title='Working Days' onChange={handleWorkingDaysChange} />
+                            <input type="number" placeholder='Working Days' onChange={handleWorkingDaysChange} />
                         </div>
                             
                     </div>
@@ -119,25 +118,25 @@ const Calculate = () => {
                         {/* Internet Allowance */}
                         <div className='internet-allowance'>
                             <label>Internet Allowance</label>
-                            <input type="number" name="internet" title='Internet Allowance' onChange={handleAllowanceChange} />
+                            <input type="number" name="internet" placeholder='Internet Allowance' onChange={handleAllowanceChange} />
                         </div>
 
                         {/* Rice Subsidy */}
                         <div className='rice-subsidy'>
                             <label>Rice Subsidy</label>
-                            <input type="number" name="rice" title='Rice Subsidy' onChange={handleAllowanceChange} />
+                            <input type="number" name="rice" placeholder='Rice Subsidy' onChange={handleAllowanceChange} />
                         </div>
 
                         {/* Uniform Allowance */}
                         <div className='uniform-allowance'>
                             <label>Uniform Allowance</label>
-                            <input type="number" name="uniform" title='Uniform Allowance' onChange={handleAllowanceChange} />
+                            <input type="number" name="uniform" placeholder='Uniform Allowance' onChange={handleAllowanceChange} />
                         </div>
 
                         {/* Medical Assistance */}
                         <div className='medical-assistance'>
                             <label>Medical Assistance</label>
-                            <input type="number" name="medical" title='Medical Assistance' onChange={handleAllowanceChange} />
+                            <input type="number" name="medical" placeholder='Medical Assistance' onChange={handleAllowanceChange} />
                         </div>
                         
                     </div>

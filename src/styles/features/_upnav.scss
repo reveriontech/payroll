@@ -7,8 +7,6 @@ $desktop: 1024px;
 .upnav {
     position: fixed;
     top: 0;
-    left: 18rem;
-    width: calc(100% - 18rem);
     height: 5rem;
     background-color: upnav.$color-gray-100;
     color: upnav.$color-white;
@@ -19,9 +17,30 @@ $desktop: 1024px;
     z-index: 999;
     transition: all 0.3s ease;
 
-    &.sidebar-collapsed {
+    // Mobile - full width
+    @media (max-width: #{upnav.$breakpoint-md - 1px}) {
+        left: 0;
+        width: 100%;
+    }
+
+    // Tablet - collapsed sidebar
+    @media (min-width: upnav.$breakpoint-md) and (max-width: #{upnav.$breakpoint-lg - 1px}) {
         left: 4rem;
         width: calc(100% - 4rem);
+    }
+
+    // Desktop - full sidebar
+    @media (min-width: upnav.$breakpoint-lg) {
+        left: 18rem;
+        width: calc(100% - 18rem);
+    }
+
+    &.sidebar-collapsed {
+        // Desktop collapsed sidebar
+        @media (min-width: upnav.$breakpoint-lg) {
+            left: 4rem;
+            width: calc(100% - 4rem);
+        }
     }
 
     svg {

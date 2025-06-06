@@ -4,6 +4,50 @@ $mobile: 360px;
 $tablet: 768px;
 $desktop: 1024px;
 
+// Mobile close button
+.mobile-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: sidebar.$color-white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+    z-index: 1002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: sidebar.$color-gray-300;
+    }
+
+    @media (min-width: sidebar.$breakpoint-md) {
+        display: none;
+    }
+}
+
+// Mobile overlay
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: block;
+
+    @media (min-width: sidebar.$breakpoint-md) {
+        display: none;
+    }
+}
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -19,8 +63,45 @@ $desktop: 1024px;
     transition: all 0.3s ease;
     z-index: 1000;
 
+    // Mobile first - hide sidebar by default on mobile
+    @media (max-width: #{sidebar.$breakpoint-md - 1px}) {
+        transform: translateX(-100%);
+        max-width: 16rem;
+        
+        &.mobile-open {
+            transform: translateX(0);
+        }
+    }
+
+    // Ensure mobile-open class doesn't affect larger screens
+    @media (min-width: sidebar.$breakpoint-md) {
+        &.mobile-open {
+            transform: translateX(0); // Reset to normal position
+        }
+    }
+
+    // Tablet - show collapsed sidebar
+    @media (min-width: sidebar.$breakpoint-md) and (max-width: #{sidebar.$breakpoint-lg - 1px}) {
+        transform: translateX(0); // Reset mobile transform
+        max-width: 4rem;
+        
+        &:not(.collapsed) {
+            max-width: 4rem;
+        }
+    }
+
+    // Desktop - show full sidebar
+    @media (min-width: sidebar.$breakpoint-lg) {
+        transform: translateX(0); // Reset mobile transform
+        max-width: 18rem;
+    }
+
     &.collapsed {
         max-width: 4rem;
+        
+        @media (max-width: #{sidebar.$breakpoint-md - 1px}) {
+            max-width: 4rem;
+        }
     }
 
     &-header {
@@ -29,23 +110,42 @@ $desktop: 1024px;
         height: auto;
         padding: 1rem;
         text-align: center;
+        position: relative; // For positioning the close button
+
+        // Mobile adjustments
+        @media (max-width: sidebar.$breakpoint-sm) {
+            padding: 0.75rem;
+        }
 
         .sidebar-header-logo-title{
             font-size: sidebar.$font-size-2xl;
             font-weight: sidebar.$font-weight-bold;
             white-space: nowrap;
+            
+            // Smaller font on mobile
+            @media (max-width: sidebar.$breakpoint-sm) {
+                font-size: sidebar.$font-size-xl;
+            }
         }
         
         .sidebar-header-logo-title-collapsed{
             font-size: sidebar.$font-size-2xl;
             font-weight: sidebar.$font-weight-bold;
             text-align: center;
+            
+            @media (max-width: sidebar.$breakpoint-sm) {
+                font-size: sidebar.$font-size-xl;
+            }
         }
         
         .sidebar-header-logo-subtitle {
             font-size: 12px;
             font-weight: sidebar.$font-weight-light;
             white-space: nowrap;
+            
+            @media (max-width: sidebar.$breakpoint-sm) {
+                font-size: 10px;
+            }
         }
     }
 
@@ -57,6 +157,12 @@ $desktop: 1024px;
         flex: 1;
         margin-top: 1rem;
 
+        // Mobile adjustments
+        @media (max-width: sidebar.$breakpoint-sm) {
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
         ul {
             list-style: none;
             padding: 0;
@@ -64,6 +170,11 @@ $desktop: 1024px;
 
             li {
                 margin-bottom: 0.5rem;
+
+                // Smaller margin on mobile
+                @media (max-width: sidebar.$breakpoint-sm) {
+                    margin-bottom: 0.25rem;
+                }
 
                 .menu-item {
                     text-decoration: none;
@@ -78,6 +189,12 @@ $desktop: 1024px;
                     border-radius: 0.5rem;
                     gap: 0.5rem;
 
+                    // Mobile adjustments
+                    @media (max-width: sidebar.$breakpoint-sm) {
+                        padding: 0.625rem;
+                        font-size: sidebar.$font-size-xs;
+                    }
+
                     &:hover {
                         color: sidebar.$color-white;
                         background-color: sidebar.$color-gray-600;
@@ -89,6 +206,11 @@ $desktop: 1024px;
                         align-items: center;
                         justify-content: center;
                         min-width: 1.25rem;
+                        
+                        @media (max-width: sidebar.$breakpoint-sm) {
+                            font-size: 1.1rem;
+                            min-width: 1.1rem;
+                        }
                     }
 
                     .menu-text {
@@ -102,6 +224,34 @@ $desktop: 1024px;
 
     // When collapsed, hide text and center icons
     &.collapsed {
+        .sidebar-header-menu {
+            padding: 1rem 0.5rem;
+            
+            @media (max-width: sidebar.$breakpoint-sm) {
+                padding: 0.75rem 0.25rem;
+                
+                .sidebar-header-logo-title {
+                    text-align: center;
+                }
+            }
+            
+            ul li .menu-item {
+                justify-content: center;
+                padding: 0.75rem 0.5rem;
+                
+                @media (max-width: sidebar.$breakpoint-sm) {
+                    padding: 0.625rem 0.25rem;
+                }
+                
+                .menu-text {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    // Auto-collapse on tablet
+    @media (min-width: sidebar.$breakpoint-md) and (max-width: #{sidebar.$breakpoint-lg - 1px}) {
         .sidebar-header-menu {
             padding: 1rem 0.5rem;
             

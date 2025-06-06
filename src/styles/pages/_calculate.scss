@@ -1,18 +1,65 @@
 @use '../utils/variables' as calculate;
 
+$mobile: 360px;
+$tablet: 768px;
+$desktop: 1024px;
+
 .calculate-container {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
+    max-width: 100%;
     padding: 2rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    margin-top: 5rem;
 
+    // Mobile adjustments
+    @media (max-width: calculate.$breakpoint-sm) {
+        padding: 1rem;
+        padding-top: 6rem; // Space for upnav
+    }
+
+    // Tablet adjustments
+    @media (min-width: calculate.$breakpoint-md) and (max-width: #{calculate.$breakpoint-lg - 1px}) {
+        padding: 1.5rem;
+    }
+
+    // Desktop adjustments
+    @media (min-width: calculate.$breakpoint-lg) {
+        padding: 2rem;
+    }
+
+    h1 {
+        @media (max-width: calculate.$breakpoint-sm) {
+            font-size: calculate.$font-size-2xl;
+        }
+    }
+
+    p {
+        @media (max-width: calculate.$breakpoint-sm) {
+            font-size: calculate.$font-size-sm;
+        }
+    }
 
     .second-container {
         display: flex;
         flex-direction: row;
         gap: 2rem;
+        width: 70%;
+        max-width: 100%;
+
+        // Stack containers on mobile and tablet
+        @media (max-width: calculate.$breakpoint-lg) {
+            flex-direction: column;
+            gap: 0;
+        }
+
+        @media (max-width: calculate.$breakpoint-sm) {
+            gap: 0;
+        }
 
 
         // Left side
@@ -20,6 +67,18 @@
                 display: flex;
                 flex-direction: column;
                 margin-top: 2rem;
+                flex: 1;
+                min-width: 0; 
+
+                @media (max-width: calculate.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
+                h4 {
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        font-size: calculate.$font-size-lg;
+                    }
+                }
 
                 // For select employee
                 .select-employee {
@@ -28,17 +87,27 @@
                     gap: 0.5rem;
                     margin-top: 2rem;
 
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        margin-top: 1rem;
+                    }
+
                     label {
                         font-weight: calculate.$font-weight-normal;
                         font-size: calculate.$font-size-sm;
                     }
 
                     select {
-                        width: 450px;
+                        width: 100%;
+                        max-width: 450px;
                         padding: 0.5rem;
                         border-radius: 4px;
                         border: 1px solid #ccc;
                         font-size: calculate.$font-size-sm;
+                        box-sizing: border-box;
+
+                        @media (max-width: calculate.$breakpoint-sm) {
+                            padding: 0.75rem;
+                        }
                         
                         &:focus {
                             outline: none;
@@ -54,17 +123,27 @@
                     gap: 0.5rem;
                     margin-top: 2rem;
 
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        margin-top: 1rem;
+                    }
+
                     label {
                         font-weight: calculate.$font-weight-normal;
                         font-size: calculate.$font-size-sm;
                     }
 
                     input {
-                        width: 450px;
+                        width: 100%;
+                        max-width: 450px;
                         padding: 0.5rem;
                         border-radius: 4px;
                         border: 1px solid #ccc;
                         font-size: calculate.$font-size-sm;
+                        box-sizing: border-box;
+
+                        @media (max-width: calculate.$breakpoint-sm) {
+                            padding: 0.75rem;
+                        }
 
                         &:focus {
                             outline: none;
@@ -80,17 +159,27 @@
                     gap: 0.5rem;
                     margin-top: 2rem;
 
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        margin-top: 1rem;
+                    }
+
                     label {
                         font-weight: calculate.$font-weight-normal;
                         font-size: calculate.$font-size-sm;
                     }
 
                     input {
-                        width: 450px;
+                        width: 100%;
+                        max-width: 450px;
                         padding: 0.5rem;
                         border-radius: 4px;
                         border: 1px solid #ccc;
                         font-size: calculate.$font-size-sm; 
+                        box-sizing: border-box;
+
+                        @media (max-width: calculate.$breakpoint-sm) {
+                            padding: 0.75rem;
+                        }
 
                         &:focus {
                             outline: none;
@@ -106,17 +195,27 @@
                     gap: 0.5rem;
                     margin-top: 2rem;
 
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        margin-top: 1rem;
+                    }
+
                     label {
                         font-weight: calculate.$font-weight-normal;
                         font-size: calculate.$font-size-sm;
                     }
 
                     input {
-                        width: 450px;   
+                        width: 100%;
+                        max-width: 450px;
                         padding: 0.5rem;
                         border-radius: 4px;
                         border: 1px solid #ccc;
                         font-size: calculate.$font-size-sm;
+                        box-sizing: border-box;
+
+                        @media (max-width: calculate.$breakpoint-sm) {
+                            padding: 0.75rem;
+                        }
 
                         &:focus {   
                             outline: none;
@@ -133,8 +232,23 @@
         .container-right {
             display: flex;
             flex-direction: column;
-            margin-top: 2rem;
-            margin-left: 2rem;            
+            margin-top: 2.2rem;
+            flex: 1;
+            min-width: 0; 
+
+            @media (max-width: calculate.$breakpoint-lg) {
+                margin-left: 0;
+            }
+
+            @media (max-width: calculate.$breakpoint-sm) {
+                margin-top: 1rem;
+            }
+
+            h4 {
+                @media (max-width: calculate.$breakpoint-sm) {
+                    font-size: calculate.$font-size-lg;
+                }
+            }
 
             // For allowances
             .internet-allowance {
@@ -143,16 +257,32 @@
                 gap: 0.5rem;
                 margin-top: 2rem;
 
+                @media (max-width: calculate.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
                 label {
                     font-weight: calculate.$font-weight-normal;
                     font-size: calculate.$font-size-sm;
                 }
 
                 input {
-                    width: 450px;
+                    width: 100%;
+                    max-width: 450px;
                     padding: 0.5rem;
                     border-radius: 4px;
                     border: 1px solid #ccc;
+                    font-size: calculate.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
                 }
             }
 
@@ -162,16 +292,32 @@
                 gap: 0.5rem;
                 margin-top: 2rem;
 
+                @media (max-width: calculate.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
                 label {
                     font-weight: calculate.$font-weight-normal;
                     font-size: calculate.$font-size-sm;
                 }
 
                 input {
-                    width: 450px;
+                    width: 100%;
+                    max-width: 450px;
                     padding: 0.5rem;
                     border-radius: 4px;
                     border: 1px solid #ccc;
+                    font-size: calculate.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
                 }
             }
 
@@ -181,16 +327,32 @@
                 gap: 0.5rem;
                 margin-top: 2rem;
 
+                @media (max-width: calculate.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
                 label {
                     font-weight: calculate.$font-weight-normal;
                     font-size: calculate.$font-size-sm;
                 }
 
                 input {
-                    width: 450px;
+                    width: 100%;
+                    max-width: 450px;
                     padding: 0.5rem;
                     border-radius: 4px;
                     border: 1px solid #ccc;
+                    font-size: calculate.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
                 }
             }
  
@@ -200,16 +362,32 @@
                 gap: 0.5rem;
                 margin-top: 2rem;
 
+                @media (max-width: calculate.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
                 label {
                     font-weight: calculate.$font-weight-normal;
                     font-size: calculate.$font-size-sm;
                 }
 
                 input {
-                    width: 450px;
+                    width: 100%;
+                    max-width: 450px;
                     padding: 0.5rem;
                     border-radius: 4px;
                     border: 1px solid #ccc;
+                    font-size: calculate.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: calculate.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
                 }
             }
            
@@ -217,7 +395,20 @@
 
         .calculate-button {
             display: flex;
-            margin-top: 2rem;
-           
+            margin-top: 2rem;    
+
+            @media (max-width: calculate.$breakpoint-sm) {
+                margin-top: 1rem;
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .button {
+                text-align: center;  // Added for all screen sizes
+                
+                @media (max-width: calculate.$breakpoint-sm) {
+                    width: 100%;
+                }
+            }
         }
-}
+}   
