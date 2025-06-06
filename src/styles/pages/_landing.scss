@@ -1,0 +1,24 @@
+@use '../utils/variables' as landing;
+
+$mobile: 360px;
+$tablet: 768px;
+$desktop: 1024px;
+
+.landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background-color: landing.$color-gray-900;
+    color: landing.$color-white;
+    gap: 2rem;
+
+    .landing-title {
+        font-size: landing.$font-size-4xl;
+        font-weight: landing.$font-weight-normal;
+        color: landing.$color-white;
+        margin-bottom: 2rem;
+    }
+}

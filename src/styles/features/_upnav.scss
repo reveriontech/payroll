@@ -1,0 +1,38 @@
+@use '../utils/variables' as upnav;
+
+$mobile: 360px;
+$tablet: 768px;
+$desktop: 1024px;
+
+.upnav {
+    position: fixed;
+    top: 0;
+    left: 18rem;
+    width: calc(100% - 18rem);
+    height: 5rem;
+    background-color: upnav.$color-gray-100;
+    color: upnav.$color-white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 2rem;
+    z-index: 999;
+    transition: all 0.3s ease;
+
+    &.sidebar-collapsed {
+        left: 4rem;
+        width: calc(100% - 4rem);
+    }
+
+    svg {
+        cursor: pointer;
+        color: upnav.$color-lightblack;
+        transition: all 0.2s ease;
+        z-index: 1000;
+
+        &:hover {
+            color: upnav.$color-gray-600;
+            transform: scale(1.1);
+        }
+    }
+}

@@ -1,0 +1,223 @@
+@use '../utils/variables' as calculate;
+
+.calculate-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    padding: 2rem;
+
+
+    .second-container {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+
+
+        // Left side
+            .container-left {
+                display: flex;
+                flex-direction: column;
+                margin-top: 2rem;
+
+                // For select employee
+                .select-employee {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    margin-top: 2rem;
+
+                    label {
+                        font-weight: calculate.$font-weight-normal;
+                        font-size: calculate.$font-size-sm;
+                    }
+
+                    select {
+                        width: 450px;
+                        padding: 0.5rem;
+                        border-radius: 4px;
+                        border: 1px solid #ccc;
+                        font-size: calculate.$font-size-sm;
+                        
+                        &:focus {
+                            outline: none;
+                            border-color: #4a90e2;
+                        }
+                    }
+                }
+
+                // For select START period
+                .select-start {         
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    margin-top: 2rem;
+
+                    label {
+                        font-weight: calculate.$font-weight-normal;
+                        font-size: calculate.$font-size-sm;
+                    }
+
+                    input {
+                        width: 450px;
+                        padding: 0.5rem;
+                        border-radius: 4px;
+                        border: 1px solid #ccc;
+                        font-size: calculate.$font-size-sm;
+
+                        &:focus {
+                            outline: none;
+                            border-color: #4a90e2;
+                        }
+                    }
+                }
+
+                // For select END period
+                .select-end {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    margin-top: 2rem;
+
+                    label {
+                        font-weight: calculate.$font-weight-normal;
+                        font-size: calculate.$font-size-sm;
+                    }
+
+                    input {
+                        width: 450px;
+                        padding: 0.5rem;
+                        border-radius: 4px;
+                        border: 1px solid #ccc;
+                        font-size: calculate.$font-size-sm; 
+
+                        &:focus {
+                            outline: none;
+                            border-color: #4a90e2;
+                        }
+                    }
+                }
+
+                // For working days
+                .working-days {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    margin-top: 2rem;
+
+                    label {
+                        font-weight: calculate.$font-weight-normal;
+                        font-size: calculate.$font-size-sm;
+                    }
+
+                    input {
+                        width: 450px;   
+                        padding: 0.5rem;
+                        border-radius: 4px;
+                        border: 1px solid #ccc;
+                        font-size: calculate.$font-size-sm;
+
+                        &:focus {   
+                            outline: none;
+                            border-color: #4a90e2;
+                        }
+                    }
+                }
+
+            }
+         }
+
+
+        //  This is for Right side container
+        .container-right {
+            display: flex;
+            flex-direction: column;
+            margin-top: 2rem;
+            margin-left: 2rem;            
+
+            // For allowances
+            .internet-allowance {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                label {
+                    font-weight: calculate.$font-weight-normal;
+                    font-size: calculate.$font-size-sm;
+                }
+
+                input {
+                    width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                }
+            }
+
+            .rice-subsidy {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                label {
+                    font-weight: calculate.$font-weight-normal;
+                    font-size: calculate.$font-size-sm;
+                }
+
+                input {
+                    width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                }
+            }
+
+            .uniform-allowance {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                label {
+                    font-weight: calculate.$font-weight-normal;
+                    font-size: calculate.$font-size-sm;
+                }
+
+                input {
+                    width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                }
+            }
+ 
+            .medical-assistance {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                label {
+                    font-weight: calculate.$font-weight-normal;
+                    font-size: calculate.$font-size-sm;
+                }
+
+                input {
+                    width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                }
+            }
+           
+        }
+
+        .calculate-button {
+            display: flex;
+            margin-top: 2rem;
+           
+        }
+}
