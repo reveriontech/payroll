@@ -67,7 +67,7 @@ const Calculate = () => {
     
   return (
     <section className='calculate-container'>
-        <h1>Calculate Payroll</h1>
+        <h1>CALCULATE PAYROLL</h1>
         <p>Process employee payroll for the selected period</p>
 
             <div className='second-container'>
@@ -144,7 +144,7 @@ const Calculate = () => {
              </div>
         {/* This div is for left side */}
 
-        <div className='calculate-button'>
+           <div className='calculate-button'>
                 <Button 
                         variant='primary' 
                         size='large' 

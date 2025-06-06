@@ -13,6 +13,24 @@ $desktop: 1024px;
     max-width: 100%;
     padding: 2rem;
     margin-top: 5rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+    // Mobile adjustments
+    @media (max-width: addemployment.$breakpoint-sm) {
+        padding: 1rem;
+        padding-top: 6rem; // Space for upnav
+    }
+
+    // Tablet adjustments
+    @media (min-width: addemployment.$breakpoint-md) and (max-width: #{addemployment.$breakpoint-lg - 1px}) {
+        padding: 1.5rem;
+    }
+
+    // Desktop adjustments
+    @media (min-width: addemployment.$breakpoint-lg) {
+        padding: 2rem;
+    }
 
     h1 {
         @media (max-width: addemployment.$breakpoint-sm) {
@@ -34,19 +52,38 @@ $desktop: 1024px;
         width: 70%;
         max-width: 100%;
 
+        // Stack containers on mobile and tablet
+        @media (max-width: addemployment.$breakpoint-lg) {
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+        }
+
+        @media (max-width: addemployment.$breakpoint-sm) {
+            gap: 0.75rem;
+        }
+
         // THis is for left side
         .container-left {
             display: flex;
             flex-direction: column;
             margin-top: 2rem;
             flex: 1;
-            min-width: 0; 
+            min-width: 0;
+
+            @media (max-width: addemployment.$breakpoint-sm) {
+                margin-top: 1rem;
+            } 
 
             .full-name {
                 display: flex;
                 flex-direction: column;
                 gap: 0.5rem;
                 margin-top: 2rem;
+
+                @media (max-width: addemployment.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
 
                 label { 
                     font-weight: addemployment.$font-weight-normal;
@@ -61,6 +98,15 @@ $desktop: 1024px;
                     border: 1px solid #ccc;
                     font-size: addemployment.$font-size-sm;
                     box-sizing: border-box;
+
+                    @media (max-width: addemployment.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
                 }
             }
 
@@ -69,6 +115,10 @@ $desktop: 1024px;
                 flex-direction: column;
                 gap: 0.5rem;
                 margin-top: 2rem;
+
+                @media (max-width: addemployment.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
 
                 label {
                     font-weight: addemployment.$font-weight-normal;
@@ -83,12 +133,89 @@ $desktop: 1024px;
                     border: 1px solid #ccc;
                     font-size: addemployment.$font-size-sm;
                     box-sizing: border-box;
+
+                    @media (max-width: addemployment.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
                 }
             }
 
+            .gender {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                @media (max-width: addemployment.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
+                label {
+                    font-weight: addemployment.$font-weight-normal;
+                    font-size: addemployment.$font-size-sm;
+                }
+
+                select {
+                    width: 100%;
+                    max-width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    font-size: addemployment.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: addemployment.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
+                }
+            }
+
+            .tin {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                @media (max-width: addemployment.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
+                label {
+                    font-weight: addemployment.$font-weight-normal;
+                    font-size: addemployment.$font-size-sm;
+                }
+
+                input {
+                    width: 100%;
+                    max-width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    font-size: addemployment.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: addemployment.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
+                }
+            }
 
         }
-
 
 
         // This is for right side
@@ -97,15 +224,178 @@ $desktop: 1024px;
             flex-direction: column;
             margin-top: 2rem;
             flex: 1;
-            min-width: 0; 
-        }   
-        
+            min-width: 0;
 
+            @media (max-width: addemployment.$breakpoint-lg) {
+                margin-left: 0;
+            }
+
+            @media (max-width: addemployment.$breakpoint-sm) {
+                margin-top: 1rem;
+            } 
+
+            .sss {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                @media (max-width: addemployment.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
+                label {
+                    font-weight: addemployment.$font-weight-normal;
+                    font-size: addemployment.$font-size-sm;
+                }
+
+                input {
+                    width: 100%;
+                    max-width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    font-size: addemployment.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: addemployment.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
+                }
+            }   
+
+            .hdmf {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                @media (max-width: addemployment.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
+                label {
+                    font-weight: addemployment.$font-weight-normal;
+                    font-size: addemployment.$font-size-sm;
+                }
+
+                input {
+                    width: 100%;
+                    max-width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    font-size: addemployment.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: addemployment.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
+                }
+            }
+
+            .philhealth {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                @media (max-width: addemployment.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
+                label {
+                    font-weight: addemployment.$font-weight-normal;
+                    font-size: addemployment.$font-size-sm;
+                }
+
+                input {
+                    width: 100%;
+                    max-width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    font-size: addemployment.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: addemployment.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
+                }
+            }
+
+            .basic-salary {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 2rem;
+
+                @media (max-width: addemployment.$breakpoint-sm) {
+                    margin-top: 1rem;
+                }
+
+                label {
+                    font-weight: addemployment.$font-weight-normal;
+                    font-size: addemployment.$font-size-sm;
+                }
+
+                input {
+                    width: 100%;
+                    max-width: 450px;
+                    padding: 0.5rem;
+                    border-radius: 4px;
+                    border: 1px solid #ccc;
+                    font-size: addemployment.$font-size-sm;
+                    box-sizing: border-box;
+
+                    @media (max-width: addemployment.$breakpoint-sm) {
+                        padding: 0.75rem;
+                    }
+
+                    &:focus {
+                        outline: none;
+                        border-color: #4a90e2;
+                    }
+                }
+            }
+        }   
 
         
     }
 
+    .calculate-button {
+        display: flex;
+        margin-top: 2rem;    
 
+        @media (max-width: addemployment.$breakpoint-sm) {
+            margin-top: 1rem;
+            width: 100%;
+            margin-left: 0;
+        }
+
+        .button {
+            text-align: center;  // Added for all screen sizes
+            
+            @media (max-width: addemployment.$breakpoint-sm) {
+                width: 100%;
+            }
+        }
+    }
 
 
 

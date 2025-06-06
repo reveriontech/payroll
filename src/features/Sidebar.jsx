@@ -5,7 +5,7 @@ import { useSidebar } from '../context/SidebarContext'
 import { MdDashboard, MdPeople, MdCalculate, MdDescription, MdPersonAdd, MdClose } from 'react-icons/md'
 
 const Sidebar = () => {
-  const { isCollapsed, isMobileOpen, isMobile, closeMobileSidebar } = useSidebar()
+  const { isCollapsed, isMobileOpen, isMobile, closeMobileSidebar, toggleSidebar } = useSidebar()
   const [isTablet, setIsTablet] = useState(false)
 
   // Check if we're on tablet
@@ -22,7 +22,17 @@ const Sidebar = () => {
   }, [])
 
   // Determine if sidebar should appear collapsed (for display purposes)
-  const shouldShowCollapsed = isCollapsed || isTablet
+  // On tablet, respect the collapsed state instead of forcing it
+  const shouldShowCollapsed = isCollapsed
+
+  // Handle close button click - different behavior for mobile vs tablet
+  const handleCloseClick = () => {
+    if (isMobile) {
+      closeMobileSidebar() // For mobile: close the sidebar overlay
+    } else if (isTablet) {
+      toggleSidebar() // For tablet: collapse the sidebar
+    }
+  }
 
   const menuItems = [
     { icon: <MdDashboard />, text: 'Dashboard', path: '/dashboard' },
@@ -44,11 +54,11 @@ const Sidebar = () => {
 
       <section className={`sidebar ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'mobile-open' : ''}`}>
         <div className='sidebar-header'>
-            {/* Mobile close button */}
-            {isMobile && isMobileOpen && (
+            {/* Mobile and Tablet close button */}
+            {((isMobile && isMobileOpen) || (isTablet && !isCollapsed)) && (
               <button 
                 className="mobile-close-button"
-                onClick={closeMobileSidebar}
+                onClick={handleCloseClick}
                 aria-label="Close sidebar"
               >
                 <MdClose />
@@ -62,7 +72,7 @@ const Sidebar = () => {
                     <p className='sidebar-header-logo-subtitle'>Payroll system</p>
                   </>
                 )}
-                {(shouldShowCollapsed || isMobile) && !isMobileOpen && (
+                {(shouldShowCollapsed || (isTablet && isCollapsed)) && !isMobileOpen && (
                   <p className='sidebar-header-logo-title-collapsed'>RT</p>
                 )}
                 {isMobile && isMobileOpen && (
