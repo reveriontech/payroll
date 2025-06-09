@@ -1,11 +1,9 @@
 import React from 'react'
 import Button from '../utils/Button'
 import '../styles/pages/_landing.scss'
-import { useNavigate } from 'react-router-dom' 
 import GoogleAuth from '../functions/GoogleAuth'
 
 const Landing = () => {
-    const navigate = useNavigate()
 
     const {
         isGoogleSigningIn,

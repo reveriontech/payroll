@@ -1,5 +1,9 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { StrictMode } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { SessionProvider } from './SessionProvider'
+import AccessProvider from './AccessProvider'
+import HomeProvider from './HomeProvider'
 
 // Pages
 import Home from '../pages/Home'
@@ -13,20 +17,34 @@ import Calendar from '../pages/Calendar'
 
 const Approutes = () => {
   return (
-    <div>
-        <Routes>
-            <Route path='/' element={<Landing />} />
+    <>
 
-            <Route element={<Home />}>
-                  <Route path='/dashboard' element={<Dashboard />} />
-                  <Route path='/employlist' element={<Employlist />} />
-                  <Route path='/calculate' element={<Calculate />} />
-                  <Route path='/Paysliplist' element={<Paysliplist />} />
-                  <Route path='/addemployment' element={<AddEmployment />} />
-                  <Route path='/calendar' element={<Calendar />} />
-            </Route>
-        </Routes>
-    </div>    
+      <BrowserRouter>
+
+        <SessionProvider>
+
+          <Routes>
+
+              <Route path='/' element={<AccessProvider><Landing /></AccessProvider>} />
+
+              <Route element={<HomeProvider><Home /></HomeProvider>}>
+
+                    <Route path='/dashboard' element={<Dashboard />} />
+                    <Route path='/employlist' element={<Employlist />} />
+                    <Route path='/calculate' element={<Calculate />} />
+                    <Route path='/paysliplist' element={<Paysliplist />} />
+                    <Route path='/addemployment' element={<AddEmployment />} />
+                    <Route path='/calendar' element={<Calendar />} />
+
+              </Route>
+
+          </Routes>
+
+        </SessionProvider>
+
+      </BrowserRouter>
+        
+    </>    
   )
 }
 

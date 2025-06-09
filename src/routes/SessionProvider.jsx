@@ -1,0 +1,112 @@
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import supabase from '../supabase/supabaseClient'
+import supabaseApi from '../supabase/supabaseApi'
+
+const SessionContext = createContext()
+
+export const SessionProvider = ({ children }) => {
+    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState(null)
+    const [userDetails, setUserDetails] = useState(null)
+    const navigate = useNavigate()
+    const location = useLocation()
+    
+    const homeRoutes = [ '/dashboard', '/employlist', '/calculate', '/paysliplist', '/addemployment', '/calendar' ]
+    
+    useEffect(() => {
+        let subscription
+    
+        const CurrentSession = async () => {
+
+            setLoading(true)
+            
+            try {
+
+                const { data: { session: supabaseSession } } = await supabase.auth.getSession()
+    
+                if (!supabaseSession) {
+                    if (location.pathname !== '/') {
+                        navigate('/')
+                    }
+                    return
+                }
+
+                const { data: result } = await supabaseApi.post('/session', {
+                    access_token: supabaseSession.access_token
+                })
+    
+                if (!result.success || result.error) {
+                    await supabase.auth.signOut()
+                    if (location.pathname !== '/') {
+                        navigate('/')
+                    }
+                    return
+                }
+
+                setUser(result.data.session)
+                setUserDetails(result.data.userDetails)
+
+                const { usertype, auth_id } = result.data.userDetails
+
+
+                        if ((usertype === 'User' || usertype === 'Admin')) {
+                            if (homeRoutes.includes(location.pathname)) {
+                                navigate(homeRoutes)
+                            } else {
+                                navigate('/dashboard')
+                            }
+                        } else {
+                            if (location.pathname !== '/') {
+                                await signoutII()
+                                navigate('/')
+                            }
+                    }
+
+                const filter = `auth_id=eq.${auth_id}`
+    
+                subscription = supabase
+                    .channel('updates')
+                    .on(
+                        'postgres_changes',
+                        {
+                            event: '*',
+                            schema: 'public',
+                            table: 'users',
+                            filter
+                        },
+                        (payload) => {
+                            setUserDetails((prev) => ({ ...prev, ...payload.new }))
+                        }
+                    )
+                    .subscribe()
+
+            } catch (error) {
+                if (location.pathname !== '/') {
+                    navigate('/')
+                }
+            } finally {
+                setLoading(false)
+            }
+        }
+    
+        CurrentSession()
+    
+        return () => {
+            if (subscription) {
+                subscription.unsubscribe()
+            }
+        }
+    }, [])
+
+return (
+    <SessionContext.Provider value={{ loading, user, userDetails, setUser, setUserDetails, navigate }} >
+      {children}
+    </SessionContext.Provider>
+  
+    )
+}
+
+export const Session = () => {
+    return useContext(SessionContext)
+}
