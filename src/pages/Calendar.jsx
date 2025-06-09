@@ -244,6 +244,17 @@ const Calendar = () => {
           <div className="sidebar">{renderSelectedDateEvents()}</div>
         )}
       </div>
+
+      {/* This part is for notes */}
+      <section className="notes-section">
+        <h2>Notes</h2>
+        <div className="notes-list">
+          <div className="note-item">
+            <h3>Note 1</h3>
+            <p>This is a note</p>
+          </div>
+        </div>
+      </section>
     </section>
   );
 };

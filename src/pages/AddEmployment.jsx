@@ -44,7 +44,6 @@ const AddEmployment = () => {
              {/* This div is for left side */}
               <div className='container-left'>
 
-
                {/* For full name */}
                   <div className='full-name'>
                     <label>Full Name</label>
@@ -90,6 +89,22 @@ const AddEmployment = () => {
                       placeholder="000-000-000"
                       value={formData.tin}
                       onChange={handleChange}
+                    />
+                  </div>
+                  
+                  <div className='profile-image'>
+                    <label>Profile Image</label>
+                    <input
+                      type="file"
+                      name="profileImage"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          // You can handle the file upload here
+                          console.log('Selected file:', file);
+                        }
+                      }}
                     />
                   </div>
               </div>
