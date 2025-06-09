@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/pages/_calendar.scss";
 import { BsXLg } from "react-icons/bs";
 
@@ -7,11 +7,11 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState({
     // Sample events for demonstration
-    "2024-01-15": [{ id: 1, title: "Team Meeting", time: "10:00 AM" }],
-    "2024-01-20": [{ id: 2, title: "Project Deadline", time: "5:00 PM" }],
+    "2024-01-15": [{ id: 1, title: "Team Meeting", startTime: "10:00", endTime: "11:00", priority: "high" }],
+    "2024-01-20": [{ id: 2, title: "Project Deadline", startTime: "17:00", endTime: "18:00", priority: "high" }],
     "2024-01-25": [
-      { id: 3, title: "Client Call", time: "2:00 PM" },
-      { id: 4, title: "Code Review", time: "4:00 PM" },
+      { id: 3, title: "Client Call", startTime: "14:00", endTime: "15:00", priority: "medium" },
+      { id: 4, title: "Code Review", startTime: "16:00", endTime: "17:30", priority: "low" },
     ],
   });
   const [selectedDate, setSelectedDate] = useState(null);
@@ -28,7 +28,11 @@ const Calendar = () => {
 
   const [isAddingEvent, setIsAddingEvent] = useState(false);
   const [newEventTitle, setNewEventTitle] = useState("");
-  const [newEventTime, setNewEventTime] = useState("");
+  const [newEventStartTime, setNewEventStartTime] = useState("");
+  const [newEventEndTime, setNewEventEndTime] = useState("");
+  const [newEventPriority, setNewEventPriority] = useState("medium");
+  const [isPriorityDropdownOpen, setIsPriorityDropdownOpen] = useState(false);
+  const priorityDropdownRef = useRef(null);
   const [isAddingNote, setIsAddingNote] = useState(false);
   const [newNoteTitle, setNewNoteTitle] = useState("");
   const [newNoteContent, setNewNoteContent] = useState("");
@@ -51,6 +55,44 @@ const Calendar = () => {
   ];
 
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  // Close priority dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (priorityDropdownRef.current && !priorityDropdownRef.current.contains(event.target)) {
+        setIsPriorityDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Priority colors
+  const priorityColors = {
+    high: "#ea4335",    // Red
+    medium: "#fbbc04",  // Yellow  
+    low: "#34a853"      // Green
+  };
+
+  // Priority options for dropdown
+  const priorityOptions = [
+    { value: "high", label: "High Priority", color: "#ea4335" },
+    { value: "medium", label: "Medium Priority", color: "#fbbc04" },
+    { value: "low", label: "Low Priority", color: "#34a853" }
+  ];
+
+  // Helper function to format time for display
+  const formatTimeForDisplay = (time24) => {
+    if (!time24) return "";
+    const [hours, minutes] = time24.split(":");
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    return `${displayHour}:${minutes} ${ampm}`;
+  };
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -89,17 +131,21 @@ const Calendar = () => {
     setIsSelectedDatePanelOpen(true);
     setIsAddingEvent(false);
     setNewEventTitle("");
-    setNewEventTime("");
+    setNewEventStartTime("");
+    setNewEventEndTime("");
+    setNewEventPriority("medium");
   };
 
   const addEvent = () => {
-    if (!selectedDate || !newEventTitle.trim() || !newEventTime.trim()) return;
+    if (!selectedDate || !newEventTitle.trim() || !newEventStartTime.trim() || !newEventEndTime.trim()) return;
 
     const dateKey = formatDateKey(selectedDate);
     const newEvent = {
       id: Date.now(),
       title: newEventTitle.trim(),
-      time: newEventTime.trim(),
+      startTime: newEventStartTime.trim(),
+      endTime: newEventEndTime.trim(),
+      priority: newEventPriority,
     };
 
     setEvents((prev) => ({
@@ -108,7 +154,9 @@ const Calendar = () => {
     }));
 
     setNewEventTitle("");
-    setNewEventTime("");
+    setNewEventStartTime("");
+    setNewEventEndTime("");
+    setNewEventPriority("medium");
     setIsAddingEvent(false);
   };
 
@@ -254,7 +302,8 @@ const Calendar = () => {
               <div
                 key={event.id}
                 className="event-dot"
-                title={`${event.title} - ${event.time}`}
+                style={{ backgroundColor: priorityColors[event.priority] }}
+                title={`${event.title} - ${formatTimeForDisplay(event.startTime)} to ${formatTimeForDisplay(event.endTime)}`}
               >
                 {event.title}
               </div>
@@ -305,9 +354,11 @@ const Calendar = () => {
             <div className="events-list">
               {dayEvents.map((event) => (
                 <div key={event.id} className="event-item">
+                  <div className="event-priority-indicator" style={{ backgroundColor: priorityColors[event.priority] }}></div>
                   <div className="event-details">
                     <span className="event-title">{event.title}</span>
-                    <span className="event-time">{event.time}</span>
+                    <span className="event-time">{formatTimeForDisplay(event.startTime)} - {formatTimeForDisplay(event.endTime)}</span>
+                    <span className="event-priority">Priority: {event.priority.charAt(0).toUpperCase() + event.priority.slice(1)}</span>
                   </div>
                   <button
                     onClick={() => removeEvent(event.id, selectedDate)}
@@ -330,13 +381,64 @@ const Calendar = () => {
                 onChange={(e) => setNewEventTitle(e.target.value)}
                 className="event-input"
               />
-              <input
-                type="text"
-                placeholder="Event time (e.g., 10:00 AM)"
-                value={newEventTime}
-                onChange={(e) => setNewEventTime(e.target.value)}
-                className="event-input"
-              />
+              <div className="time-inputs">
+                <div className="time-input-group">
+                  <label>Start Time</label>
+                  <input
+                    type="time"
+                    value={newEventStartTime}
+                    onChange={(e) => setNewEventStartTime(e.target.value)}
+                    className="event-time-input"
+                  />
+                </div>
+                <div className="time-input-group">
+                  <label>End Time</label>
+                  <input
+                    type="time"
+                    value={newEventEndTime}
+                    onChange={(e) => setNewEventEndTime(e.target.value)}
+                    className="event-time-input"
+                  />
+                </div>
+              </div>
+              <div className="priority-selection">
+                <label>Priority</label>
+                <div className="custom-priority-dropdown" ref={priorityDropdownRef}>
+                  <div 
+                    className="priority-dropdown-trigger"
+                    onClick={() => setIsPriorityDropdownOpen(!isPriorityDropdownOpen)}
+                  >
+                    <div className="selected-priority">
+                      <div 
+                        className="priority-color-dot" 
+                        style={{ backgroundColor: priorityColors[newEventPriority] }}
+                      ></div>
+                      {priorityOptions.find(option => option.value === newEventPriority)?.label}
+                    </div>
+                    <span className="dropdown-arrow">▼</span>
+                  </div>
+                  {isPriorityDropdownOpen && (
+                    <div className="priority-dropdown-options">
+                      {priorityOptions.map((option) => (
+                        <div
+                          key={option.value}
+                          className={`priority-option ${newEventPriority === option.value ? 'selected' : ''}`}
+                          onClick={() => {
+                            setNewEventPriority(option.value);
+                            setIsPriorityDropdownOpen(false);
+                          }}
+                        >
+                          <div 
+                            className="priority-color-dot" 
+                            style={{ backgroundColor: option.color }}
+                          ></div>
+                          {option.label}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
               <div className="form-buttons">
                 <button onClick={addEvent} className="add-event-btn">
                   Add Event
@@ -345,7 +447,9 @@ const Calendar = () => {
                   onClick={() => {
                     setIsAddingEvent(false);
                     setNewEventTitle("");
-                    setNewEventTime("");
+                    setNewEventStartTime("");
+                    setNewEventEndTime("");
+                    setNewEventPriority("medium");
                   }}
                   className="cancel-btn"
                 >

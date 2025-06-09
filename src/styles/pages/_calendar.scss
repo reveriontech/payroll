@@ -7,7 +7,7 @@ $desktop: 1024px;
 .calendar-container {
     display: flex;
     flex-direction: column;
-    margin-top: 6rem;
+    margin-top: 4rem;
     width: 100%;
     min-height: calc(100vh - 6rem);
     background: #ffffff;
@@ -91,10 +91,8 @@ $desktop: 1024px;
                 padding: 8px 16px;
                 font-size: 0.875rem;
                 font-weight: 500;
-                border-radius: 4px;
                 cursor: pointer;
                 transition: all 0.2s ease;
-                box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
 
                 &:hover {
                     background: #f8f9fa;
@@ -121,10 +119,8 @@ $desktop: 1024px;
             padding: 8px 16px;
             font-size: 0.875rem;
             font-weight: 500;
-            border-radius: 4px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
 
             &:hover {
                 background: #f8f9fa;
@@ -293,7 +289,6 @@ $desktop: 1024px;
                         gap: 1px;
 
                         .event-dot {
-                            background: #1a73e8;
                             color: #ffffff;
                             padding: 1px 4px;
                             border-radius: 2px;
@@ -304,23 +299,6 @@ $desktop: 1024px;
                             text-overflow: ellipsis;
                             line-height: 1.2;
                             margin-bottom: 1px;
-
-                            &:nth-child(2) {
-                                background: #ea4335;
-                            }
-
-                            &:nth-child(3) {
-                                background: #fbbc04;
-                                color: #202124;
-                            }
-
-                            &:nth-child(4) {
-                                background: #34a853;
-                            }
-
-                            &:nth-child(5) {
-                                background: #9c27b0;
-                            }
 
                             @media (max-width: $tablet) {
                                 font-size: 0.625rem;
@@ -369,7 +347,6 @@ $desktop: 1024px;
         .sidebar {
             background: #ffffff;
             border: 1px solid #dadce0;
-            border-radius: 8px;
             padding: 1rem;
             min-width: 220px;
 
@@ -560,7 +537,7 @@ $desktop: 1024px;
                         .event-item {
                             display: flex;
                             align-items: center;
-                            justify-content: space-between;
+                            gap: 0.75rem;
                             background: #ffffff;
                             padding: 0.75rem;
                             border: 1px solid #dadce0;
@@ -572,12 +549,19 @@ $desktop: 1024px;
                                 border-color: #dadce0;
                             }
 
+                            .event-priority-indicator {
+                                width: 4px;
+                                height: 40px;
+                                border-radius: 2px;
+                                flex-shrink: 0;
+                            }
+
                             .event-details {
                                 flex: 1;
 
                                 .event-title {
                                     display: block;
-                                    font-weight: 400;
+                                    font-weight: 500;
                                     color: #202124;
                                     margin-bottom: 0.25rem;
                                     font-size: 0.875rem;
@@ -587,6 +571,14 @@ $desktop: 1024px;
                                     display: block;
                                     font-size: 0.75rem;
                                     color: #5f6368;
+                                    margin-bottom: 0.125rem;
+                                }
+
+                                .event-priority {
+                                    display: block;
+                                    font-size: 0.65rem;
+                                    color: #70757a;
+                                    text-transform: capitalize;
                                 }
                             }
 
@@ -637,6 +629,136 @@ $desktop: 1024px;
 
                             &::placeholder {
                                 color: #5f6368;
+                            }
+                        }
+
+                        .time-inputs {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 0.5rem;
+
+                            .time-input-group {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 0.25rem;
+
+                                label {
+                                    font-size: 0.75rem;
+                                    color: #5f6368;
+                                    font-weight: 500;
+                                }
+
+                                .event-time-input {
+                                    padding: 0.5rem;
+                                    border: 1px solid #dadce0;
+                                    border-radius: 4px;
+                                    font-size: 0.875rem;
+                                    font-family: inherit;
+                                    transition: border-color 0.2s ease;
+
+                                    &:focus {
+                                        outline: none;
+                                        border-color: #1a73e8;
+                                        box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+                                    }
+                                }
+                            }
+                        }
+
+                        .priority-selection {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.25rem;
+
+                            label {
+                                font-size: 0.75rem;
+                                color: #5f6368;
+                                font-weight: 500;
+                            }
+
+                            .custom-priority-dropdown {
+                                position: relative;
+
+                                .priority-dropdown-trigger {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    padding: 0.5rem;
+                                    border: 1px solid #dadce0;
+                                    border-radius: 4px;
+                                    background: #ffffff;
+                                    cursor: pointer;
+                                    transition: border-color 0.2s ease;
+
+                                    &:hover {
+                                        border-color: #1a73e8;
+                                    }
+
+                                    .selected-priority {
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 0.5rem;
+                                        font-size: 0.875rem;
+                                        color: #202124;
+
+                                        .priority-color-dot {
+                                            width: 12px;
+                                            height: 12px;
+                                            border-radius: 50%;
+                                            flex-shrink: 0;
+                                        }
+                                    }
+
+                                    .dropdown-arrow {
+                                        font-size: 0.75rem;
+                                        color: #5f6368;
+                                        transition: transform 0.2s ease;
+                                    }
+
+                                    &.open .dropdown-arrow {
+                                        transform: rotate(180deg);
+                                    }
+                                }
+
+                                .priority-dropdown-options {
+                                    position: absolute;
+                                    top: 100%;
+                                    left: 0;
+                                    right: 0;
+                                    background: #ffffff;
+                                    border: 1px solid #dadce0;
+                                    border-top: none;
+                                    border-radius: 0 0 4px 4px;
+                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                    z-index: 1000;
+
+                                    .priority-option {
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 0.5rem;
+                                        padding: 0.5rem;
+                                        font-size: 0.875rem;
+                                        color: #202124;
+                                        cursor: pointer;
+                                        transition: background-color 0.1s ease;
+
+                                        &:hover {
+                                            background: #f8f9fa;
+                                        }
+
+                                        &.selected {
+                                            background: #e8f0fe;
+                                            color: #1a73e8;
+                                        }
+
+                                        .priority-color-dot {
+                                            width: 12px;
+                                            height: 12px;
+                                            border-radius: 50%;
+                                            flex-shrink: 0;
+                                        }
+                                    }
+                                }
                             }
                         }
 
