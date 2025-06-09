@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../styles/features/_sidebar.scss'
 import { Link } from 'react-router-dom'
 import { useSidebar } from '../context/SidebarContext'
-import { MdDashboard, MdPeople, MdCalculate, MdDescription, MdPersonAdd, MdClose } from 'react-icons/md'
+import { MdDashboard, MdPeople, MdCalculate, MdDescription, MdPersonAdd, MdClose, MdCalendarMonth } from 'react-icons/md'
 
 const Sidebar = () => {
   const { isCollapsed, isMobileOpen, isMobile, closeMobileSidebar, toggleSidebar } = useSidebar()
@@ -39,7 +39,8 @@ const Sidebar = () => {
     { icon: <MdPeople />, text: 'Employee List', path: '/employlist' },
     { icon: <MdCalculate />, text: 'Calculate Payroll', path: '/calculate' },
     { icon: <MdDescription />, text: 'View Payslip', path: '/paysliplist' },
-    { icon: <MdPersonAdd />, text: 'Add Employee', path: '/addemployment' }
+    { icon: <MdPersonAdd />, text: 'Add Employee', path: '/addemployment' },
+    { icon: <MdCalendarMonth />, text: 'Calendar', path: '/calendar' }
   ]
 
   return (

@@ -9,6 +9,7 @@ import Employlist from '../pages/Employlist'
 import Calculate from '../pages/Calculate'
 import Paysliplist from '../pages/Paysliplist'
 import AddEmployment from '../pages/AddEmployment'
+import Calendar from '../pages/Calendar'
 
 const Approutes = () => {
   return (
@@ -22,6 +23,7 @@ const Approutes = () => {
                   <Route path='/calculate' element={<Calculate />} />
                   <Route path='/Paysliplist' element={<Paysliplist />} />
                   <Route path='/addemployment' element={<AddEmployment />} />
+                  <Route path='/calendar' element={<Calendar />} />
             </Route>
         </Routes>
     </div>    

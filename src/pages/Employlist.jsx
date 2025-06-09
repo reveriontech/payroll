@@ -20,28 +20,48 @@ const Employlist = () => {
     },
   ]
   
+  const handleRowClick = (employ) => {
+    console.log('Selected employee:', employ);
+    // Add your row click handling logic here
+  };
+
   return (
-    <section>
-      <div className='employ-list-container'>
-        <h1>EMPLOYMENT LIST</h1>
+      <section>
+        <div className='employ-list-container'>
+          <h1>EMPLOYMENT LIST</h1>
 
-          <div className='employ-list-item-container'>
-              {employList.map((employ) => (
-                      <div className='employ-list-item' key={employ.id}>
-                          <ul className='employ-list'>
-                              <li>ID: {employ.id}</li>
-                              <li>Name: {employ.name}</li>
-                              <li>Basic Salary: {employ.basicSalary}</li>
-                              <li>TIN: {employ.TIN}</li>
-                              <li>SSS: {employ.sss}</li>
-                          </ul>
-                      </div>
-                  ))}
-            </div>
-       </div>
-      
-    </section>
+          {/* This part is for table */}
+          <div className='employ-table-container'>
+            <table className='employ-table'>
+              <thead>
+                <tr className='employ-table-header'>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Basic Salary</th>
+                  <th>TIN</th>
+                  <th>SSS</th>
+                </tr>
+              </thead>
+              <tbody>
+                {employList.map((employ) => (
+                  <tr 
+                    className='employ-table-row' 
+                    key={employ.id}
+                    onClick={() => handleRowClick(employ)}
+                  >
+                    <td>{employ.id}</td>
+                    <td>{employ.name}</td>
+                    <td>{employ.basicSalary}</td>
+                    <td>{employ.TIN}</td>
+                    <td>{employ.sss}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
+        </div>
+      </section>
   )
 }
 

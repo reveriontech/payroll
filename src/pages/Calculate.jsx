@@ -24,7 +24,7 @@ const Calculate = () => {
     const handleEmployeeChange = (e) => {
         setEmployee(e.target.value);
     };
-
+    
     // Handle pay period change
     const handlePayPeriodChange = (e) => {
         setPayPeriod({
