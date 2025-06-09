@@ -1,10 +1,16 @@
 import React from 'react'
 import Button from '../utils/Button'
 import '../styles/pages/_landing.scss'
-import { useNavigate } from 'react-router-dom'  
+import { useNavigate } from 'react-router-dom' 
+import GoogleAuth from '../functions/GoogleAuth'
 
 const Landing = () => {
     const navigate = useNavigate()
+
+    const {
+        isGoogleSigningIn,
+        handleGoogleSignIn
+    } = GoogleAuth()
 
   return (
     <section className='landing'>
@@ -15,11 +21,9 @@ const Landing = () => {
         </div>
         <Button variant='outline' 
             size='small'
-            onClick={() => {
-                navigate('/dashboard')
-            }}
+            onClick={handleGoogleSignIn}
         >
-            Proceed
+            {isGoogleSigningIn ? ('Authenticating') : ('Authenticate')}
         </Button>
     </section>
   )
