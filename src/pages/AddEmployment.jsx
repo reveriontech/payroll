@@ -5,6 +5,8 @@ import Button from '../utils/Button'
 
 
 const AddEmployment = () => {
+  const [profileImage, setProfileImage] = useState(null);
+
   const { isCollapsed } = useSidebar()
 
   const handleAddEmployment = () => {
@@ -91,6 +93,8 @@ const AddEmployment = () => {
                       onChange={handleChange}
                     />
                   </div>
+
+                  {/* For uplaod image */}
                   
                   <div className='profile-image'>
                     <label>Profile Image</label>
@@ -101,7 +105,7 @@ const AddEmployment = () => {
                       onChange={(e) => {
                         const file = e.target.files[0];
                         if (file) {
-                          // You can handle the file upload here
+                          setProfileImage(file);
                           console.log('Selected file:', file);
                         }
                       }}
