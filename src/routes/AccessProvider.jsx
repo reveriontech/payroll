@@ -18,7 +18,7 @@ function AccessProvider({ children }) {
 
     if (loading) {
         return (
-         <PageLoader/>
+            <PageLoader/>
         )
     }
 

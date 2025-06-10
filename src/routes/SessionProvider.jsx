@@ -47,8 +47,7 @@ export const SessionProvider = ({ children }) => {
                 setUser(result.data.session)
                 setUserDetails(result.data.userDetails)
 
-                const { usertype, auth_id } = result.data.userDetails
-
+                const { usertype } = result.data.userDetails
 
                         if ((usertype === 'User' || usertype === 'Admin')) {
                             if (homeRoutes.includes(location.pathname)) {
@@ -63,24 +62,6 @@ export const SessionProvider = ({ children }) => {
                             }
                     }
 
-                const filter = `auth_id=eq.${auth_id}`
-    
-                subscription = supabase
-                    .channel('updates')
-                    .on(
-                        'postgres_changes',
-                        {
-                            event: '*',
-                            schema: 'public',
-                            table: 'users',
-                            filter
-                        },
-                        (payload) => {
-                            setUserDetails((prev) => ({ ...prev, ...payload.new }))
-                        }
-                    )
-                    .subscribe()
-
             } catch (error) {
                 if (location.pathname !== '/') {
                     navigate('/')
@@ -91,12 +72,6 @@ export const SessionProvider = ({ children }) => {
         }
     
         CurrentSession()
-    
-        return () => {
-            if (subscription) {
-                subscription.unsubscribe()
-            }
-        }
     }, [])
 
 return (
