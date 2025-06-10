@@ -1,6 +1,16 @@
 import React from 'react';
 
 const PageLoader = () => {
+  const [rotation, setRotation] = React.useState(0);
+
+ React.useEffect(() => {
+   const interval = setInterval(() => {
+     setRotation(prev => prev + 10);
+   }, 10);
+
+   return () => clearInterval(interval);
+ }, []);
+
   const styles = {
     pageLoader: {
       display: 'flex',
@@ -23,7 +33,7 @@ const PageLoader = () => {
       border: '2px solid #e0e0e0',
       borderTop: '2px solid #1a73e8',
       borderRadius: '50%',
-      animation: 'spin 1s linear infinite'
+      transform: `rotate(${rotation}deg)`
     }
   };
 

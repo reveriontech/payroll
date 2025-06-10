@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
 import { Session } from './SessionProvider'
+import PageLoader from '../components/PageLoader'
 
 function AccessProvider({ children }) {
     const {
@@ -17,7 +18,7 @@ function AccessProvider({ children }) {
 
     if (loading) {
         return (
-          <div className="loading">Loading<span className="dots"></span></div>
+         <PageLoader/>
         )
     }
 
