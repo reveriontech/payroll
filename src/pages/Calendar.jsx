@@ -7,11 +7,39 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [events, setEvents] = useState({
     // Sample events for demonstration
-    "2024-01-15": [{ id: 1, title: "Team Meeting", startTime: "10:00", endTime: "11:00", priority: "high" }],
-    "2024-01-20": [{ id: 2, title: "Project Deadline", startTime: "17:00", endTime: "18:00", priority: "high" }],
+    "2024-01-15": [
+      {
+        id: 1,
+        title: "Team Meeting",
+        startTime: "10:00",
+        endTime: "11:00",
+        priority: "high",
+      },
+    ],
+    "2024-01-20": [
+      {
+        id: 2,
+        title: "Project Deadline",
+        startTime: "17:00",
+        endTime: "18:00",
+        priority: "high",
+      },
+    ],
     "2024-01-25": [
-      { id: 3, title: "Client Call", startTime: "14:00", endTime: "15:00", priority: "medium" },
-      { id: 4, title: "Code Review", startTime: "16:00", endTime: "17:30", priority: "low" },
+      {
+        id: 3,
+        title: "Client Call",
+        startTime: "14:00",
+        endTime: "15:00",
+        priority: "medium",
+      },
+      {
+        id: 4,
+        title: "Code Review",
+        startTime: "16:00",
+        endTime: "17:30",
+        priority: "low",
+      },
     ],
   });
   const [selectedDate, setSelectedDate] = useState(null);
@@ -59,29 +87,32 @@ const Calendar = () => {
   // Close priority dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (priorityDropdownRef.current && !priorityDropdownRef.current.contains(event.target)) {
+      if (
+        priorityDropdownRef.current &&
+        !priorityDropdownRef.current.contains(event.target)
+      ) {
         setIsPriorityDropdownOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   // Priority colors
   const priorityColors = {
-    high: "#ea4335",    // Red
-    medium: "#fbbc04",  // Yellow  
-    low: "#34a853"      // Green
+    high: "#ea4335", // Red
+    medium: "#fbbc04", // Yellow
+    low: "#34a853", // Green
   };
 
   // Priority options for dropdown
   const priorityOptions = [
     { value: "high", label: "High Priority", color: "#ea4335" },
     { value: "medium", label: "Medium Priority", color: "#fbbc04" },
-    { value: "low", label: "Low Priority", color: "#34a853" }
+    { value: "low", label: "Low Priority", color: "#34a853" },
   ];
 
   // Helper function to format time for display
@@ -137,7 +168,13 @@ const Calendar = () => {
   };
 
   const addEvent = () => {
-    if (!selectedDate || !newEventTitle.trim() || !newEventStartTime.trim() || !newEventEndTime.trim()) return;
+    if (
+      !selectedDate ||
+      !newEventTitle.trim() ||
+      !newEventStartTime.trim() ||
+      !newEventEndTime.trim()
+    )
+      return;
 
     const dateKey = formatDateKey(selectedDate);
     const newEvent = {
@@ -303,7 +340,9 @@ const Calendar = () => {
                 key={event.id}
                 className="event-dot"
                 style={{ backgroundColor: priorityColors[event.priority] }}
-                title={`${event.title} - ${formatTimeForDisplay(event.startTime)} to ${formatTimeForDisplay(event.endTime)}`}
+                title={`${event.title} - ${formatTimeForDisplay(
+                  event.startTime
+                )} to ${formatTimeForDisplay(event.endTime)}`}
               >
                 {event.title}
               </div>
@@ -354,11 +393,21 @@ const Calendar = () => {
             <div className="events-list">
               {dayEvents.map((event) => (
                 <div key={event.id} className="event-item">
-                  <div className="event-priority-indicator" style={{ backgroundColor: priorityColors[event.priority] }}></div>
+                  <div
+                    className="event-priority-indicator"
+                    style={{ backgroundColor: priorityColors[event.priority] }}
+                  ></div>
                   <div className="event-details">
                     <span className="event-title">{event.title}</span>
-                    <span className="event-time">{formatTimeForDisplay(event.startTime)} - {formatTimeForDisplay(event.endTime)}</span>
-                    <span className="event-priority">Priority: {event.priority.charAt(0).toUpperCase() + event.priority.slice(1)}</span>
+                    <span className="event-time">
+                      {formatTimeForDisplay(event.startTime)} -{" "}
+                      {formatTimeForDisplay(event.endTime)}
+                    </span>
+                    <span className="event-priority">
+                      Priority:{" "}
+                      {event.priority.charAt(0).toUpperCase() +
+                        event.priority.slice(1)}
+                    </span>
                   </div>
                   <button
                     onClick={() => removeEvent(event.id, selectedDate)}
@@ -403,17 +452,28 @@ const Calendar = () => {
               </div>
               <div className="priority-selection">
                 <label>Priority</label>
-                <div className="custom-priority-dropdown" ref={priorityDropdownRef}>
-                  <div 
+                <div
+                  className="custom-priority-dropdown"
+                  ref={priorityDropdownRef}
+                >
+                  <div
                     className="priority-dropdown-trigger"
-                    onClick={() => setIsPriorityDropdownOpen(!isPriorityDropdownOpen)}
+                    onClick={() =>
+                      setIsPriorityDropdownOpen(!isPriorityDropdownOpen)
+                    }
                   >
                     <div className="selected-priority">
-                      <div 
-                        className="priority-color-dot" 
-                        style={{ backgroundColor: priorityColors[newEventPriority] }}
+                      <div
+                        className="priority-color-dot"
+                        style={{
+                          backgroundColor: priorityColors[newEventPriority],
+                        }}
                       ></div>
-                      {priorityOptions.find(option => option.value === newEventPriority)?.label}
+                      {
+                        priorityOptions.find(
+                          (option) => option.value === newEventPriority
+                        )?.label
+                      }
                     </div>
                     <span className="dropdown-arrow">▼</span>
                   </div>
@@ -422,14 +482,16 @@ const Calendar = () => {
                       {priorityOptions.map((option) => (
                         <div
                           key={option.value}
-                          className={`priority-option ${newEventPriority === option.value ? 'selected' : ''}`}
+                          className={`priority-option ${
+                            newEventPriority === option.value ? "selected" : ""
+                          }`}
                           onClick={() => {
                             setNewEventPriority(option.value);
                             setIsPriorityDropdownOpen(false);
                           }}
                         >
-                          <div 
-                            className="priority-color-dot" 
+                          <div
+                            className="priority-color-dot"
                             style={{ backgroundColor: option.color }}
                           ></div>
                           {option.label}

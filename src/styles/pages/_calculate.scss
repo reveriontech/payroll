@@ -1,414 +1,410 @@
-@use '../utils/variables' as calculate;
+@use "../utils/variables" as calculate;
 
 $mobile: 360px;
 $tablet: 768px;
 $desktop: 1024px;
 
 .calculate-container {
-    position: relative;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  margin-top: 5rem;
+
+  // Mobile adjustments
+  @media (max-width: calculate.$breakpoint-sm) {
+    padding: 1rem;
+    padding-top: 6rem; // Space for upnav
+  }
+
+  // Tablet adjustments
+  @media (min-width: calculate.$breakpoint-md) and (max-width: #{calculate.$breakpoint-lg - 1px}) {
+    padding: 1.5rem;
+  }
+
+  // Desktop adjustments
+  @media (min-width: calculate.$breakpoint-lg) {
+    padding: 2rem;
+  }
+
+  h1 {
+    @media (max-width: calculate.$breakpoint-sm) {
+      font-size: calculate.$font-size-2xl;
+    }
+  }
+
+  p {
+    @media (max-width: calculate.$breakpoint-sm) {
+      font-size: calculate.$font-size-sm;
+    }
+  }
+
+  .second-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    width: 70%;
+    max-width: 100%;
+
+    // Stack containers on mobile and tablet
+    @media (max-width: calculate.$breakpoint-lg) {
+      flex-direction: column;
+      gap: 0;
+    }
+
+    @media (max-width: calculate.$breakpoint-sm) {
+      gap: 0;
+    }
+
+    // Left side
+    .container-left {
+      display: flex;
+      flex-direction: column;
+      margin-top: 2rem;
+      flex: 1;
+      min-width: 0;
+
+      @media (max-width: calculate.$breakpoint-sm) {
+        margin-top: 1rem;
+      }
+
+      h4 {
+        @media (max-width: calculate.$breakpoint-sm) {
+          font-size: calculate.$font-size-lg;
+        }
+      }
+
+      // For select employee
+      .select-employee {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 2rem;
+
+        @media (max-width: calculate.$breakpoint-sm) {
+          margin-top: 1rem;
+        }
+
+        label {
+          font-weight: calculate.$font-weight-normal;
+          font-size: calculate.$font-size-sm;
+        }
+
+        select {
+          width: 100%;
+          max-width: 450px;
+          padding: 0.5rem;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+          font-size: calculate.$font-size-sm;
+          box-sizing: border-box;
+
+          @media (max-width: calculate.$breakpoint-sm) {
+            padding: 0.75rem;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #4a90e2;
+          }
+        }
+      }
+
+      // For select START period
+      .select-start {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 2rem;
+
+        @media (max-width: calculate.$breakpoint-sm) {
+          margin-top: 1rem;
+        }
+
+        label {
+          font-weight: calculate.$font-weight-normal;
+          font-size: calculate.$font-size-sm;
+        }
+
+        input {
+          width: 100%;
+          max-width: 450px;
+          padding: 0.5rem;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+          font-size: calculate.$font-size-sm;
+          box-sizing: border-box;
+
+          @media (max-width: calculate.$breakpoint-sm) {
+            padding: 0.75rem;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #4a90e2;
+          }
+        }
+      }
+
+      // For select END period
+      .select-end {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 2rem;
+
+        @media (max-width: calculate.$breakpoint-sm) {
+          margin-top: 1rem;
+        }
+
+        label {
+          font-weight: calculate.$font-weight-normal;
+          font-size: calculate.$font-size-sm;
+        }
+
+        input {
+          width: 100%;
+          max-width: 450px;
+          padding: 0.5rem;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+          font-size: calculate.$font-size-sm;
+          box-sizing: border-box;
+
+          @media (max-width: calculate.$breakpoint-sm) {
+            padding: 0.75rem;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #4a90e2;
+          }
+        }
+      }
+
+      // For working days
+      .working-days {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 2rem;
+
+        @media (max-width: calculate.$breakpoint-sm) {
+          margin-top: 1rem;
+        }
+
+        label {
+          font-weight: calculate.$font-weight-normal;
+          font-size: calculate.$font-size-sm;
+        }
+
+        input {
+          width: 100%;
+          max-width: 450px;
+          padding: 0.5rem;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+          font-size: calculate.$font-size-sm;
+          box-sizing: border-box;
+
+          @media (max-width: calculate.$breakpoint-sm) {
+            padding: 0.75rem;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #4a90e2;
+          }
+        }
+      }
+    }
+  }
+
+  //  This is for Right side container
+  .container-right {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
-    max-width: 100%;
-    padding: 2rem;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    margin-top: 5rem;
+    margin-top: 2.2rem;
+    flex: 1;
+    min-width: 0;
 
-    // Mobile adjustments
+    @media (max-width: calculate.$breakpoint-lg) {
+      margin-left: 0;
+    }
+
     @media (max-width: calculate.$breakpoint-sm) {
-        padding: 1rem;
-        padding-top: 6rem; // Space for upnav
+      margin-top: 1rem;
     }
 
-    // Tablet adjustments
-    @media (min-width: calculate.$breakpoint-md) and (max-width: #{calculate.$breakpoint-lg - 1px}) {
-        padding: 1.5rem;
+    h4 {
+      @media (max-width: calculate.$breakpoint-sm) {
+        font-size: calculate.$font-size-lg;
+      }
     }
 
-    // Desktop adjustments
-    @media (min-width: calculate.$breakpoint-lg) {
-        padding: 2rem;
-    }
+    // For allowances
+    .internet-allowance {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 2rem;
 
-    h1 {
-        @media (max-width: calculate.$breakpoint-sm) {
-            font-size: calculate.$font-size-2xl;
-        }
-    }
+      @media (max-width: calculate.$breakpoint-sm) {
+        margin-top: 1rem;
+      }
 
-    p {
-        @media (max-width: calculate.$breakpoint-sm) {
-            font-size: calculate.$font-size-sm;
-        }
-    }
+      label {
+        font-weight: calculate.$font-weight-normal;
+        font-size: calculate.$font-size-sm;
+      }
 
-    .second-container {
-        display: flex;
-        flex-direction: row;
-        gap: 2rem;
-        width: 70%;
-        max-width: 100%;
-
-        // Stack containers on mobile and tablet
-        @media (max-width: calculate.$breakpoint-lg) {
-            flex-direction: column;
-            gap: 0;
-        }
+      input {
+        width: 100%;
+        max-width: 450px;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: calculate.$font-size-sm;
+        box-sizing: border-box;
 
         @media (max-width: calculate.$breakpoint-sm) {
-            gap: 0;
+          padding: 0.75rem;
         }
 
+        &:focus {
+          outline: none;
+          border-color: #4a90e2;
+        }
+      }
+    }
 
-        // Left side
-            .container-left {
-                display: flex;
-                flex-direction: column;
-                margin-top: 2rem;
-                flex: 1;
-                min-width: 0; 
+    .rice-subsidy {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 2rem;
 
-                @media (max-width: calculate.$breakpoint-sm) {
-                    margin-top: 1rem;
-                }
+      @media (max-width: calculate.$breakpoint-sm) {
+        margin-top: 1rem;
+      }
 
-                h4 {
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        font-size: calculate.$font-size-lg;
-                    }
-                }
+      label {
+        font-weight: calculate.$font-weight-normal;
+        font-size: calculate.$font-size-sm;
+      }
 
-                // For select employee
-                .select-employee {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    margin-top: 2rem;
+      input {
+        width: 100%;
+        max-width: 450px;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: calculate.$font-size-sm;
+        box-sizing: border-box;
 
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        margin-top: 1rem;
-                    }
-
-                    label {
-                        font-weight: calculate.$font-weight-normal;
-                        font-size: calculate.$font-size-sm;
-                    }
-
-                    select {
-                        width: 100%;
-                        max-width: 450px;
-                        padding: 0.5rem;
-                        border-radius: 4px;
-                        border: 1px solid #ccc;
-                        font-size: calculate.$font-size-sm;
-                        box-sizing: border-box;
-
-                        @media (max-width: calculate.$breakpoint-sm) {
-                            padding: 0.75rem;
-                        }
-                        
-                        &:focus {
-                            outline: none;
-                            border-color: #4a90e2;
-                        }
-                    }
-                }
-
-                // For select START period
-                .select-start {         
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    margin-top: 2rem;
-
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        margin-top: 1rem;
-                    }
-
-                    label {
-                        font-weight: calculate.$font-weight-normal;
-                        font-size: calculate.$font-size-sm;
-                    }
-
-                    input {
-                        width: 100%;
-                        max-width: 450px;
-                        padding: 0.5rem;
-                        border-radius: 4px;
-                        border: 1px solid #ccc;
-                        font-size: calculate.$font-size-sm;
-                        box-sizing: border-box;
-
-                        @media (max-width: calculate.$breakpoint-sm) {
-                            padding: 0.75rem;
-                        }
-
-                        &:focus {
-                            outline: none;
-                            border-color: #4a90e2;
-                        }
-                    }
-                }
-
-                // For select END period
-                .select-end {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    margin-top: 2rem;
-
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        margin-top: 1rem;
-                    }
-
-                    label {
-                        font-weight: calculate.$font-weight-normal;
-                        font-size: calculate.$font-size-sm;
-                    }
-
-                    input {
-                        width: 100%;
-                        max-width: 450px;
-                        padding: 0.5rem;
-                        border-radius: 4px;
-                        border: 1px solid #ccc;
-                        font-size: calculate.$font-size-sm; 
-                        box-sizing: border-box;
-
-                        @media (max-width: calculate.$breakpoint-sm) {
-                            padding: 0.75rem;
-                        }
-
-                        &:focus {
-                            outline: none;
-                            border-color: #4a90e2;
-                        }
-                    }
-                }
-
-                // For working days
-                .working-days {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.5rem;
-                    margin-top: 2rem;
-
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        margin-top: 1rem;
-                    }
-
-                    label {
-                        font-weight: calculate.$font-weight-normal;
-                        font-size: calculate.$font-size-sm;
-                    }
-
-                    input {
-                        width: 100%;
-                        max-width: 450px;
-                        padding: 0.5rem;
-                        border-radius: 4px;
-                        border: 1px solid #ccc;
-                        font-size: calculate.$font-size-sm;
-                        box-sizing: border-box;
-
-                        @media (max-width: calculate.$breakpoint-sm) {
-                            padding: 0.75rem;
-                        }
-
-                        &:focus {   
-                            outline: none;
-                            border-color: #4a90e2;
-                        }
-                    }
-                }
-
-            }
-         }
-
-
-        //  This is for Right side container
-        .container-right {
-            display: flex;
-            flex-direction: column;
-            margin-top: 2.2rem;
-            flex: 1;
-            min-width: 0; 
-
-            @media (max-width: calculate.$breakpoint-lg) {
-                margin-left: 0;
-            }
-
-            @media (max-width: calculate.$breakpoint-sm) {
-                margin-top: 1rem;
-            }
-
-            h4 {
-                @media (max-width: calculate.$breakpoint-sm) {
-                    font-size: calculate.$font-size-lg;
-                }
-            }
-
-            // For allowances
-            .internet-allowance {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 2rem;
-
-                @media (max-width: calculate.$breakpoint-sm) {
-                    margin-top: 1rem;
-                }
-
-                label {
-                    font-weight: calculate.$font-weight-normal;
-                    font-size: calculate.$font-size-sm;
-                }
-
-                input {
-                    width: 100%;
-                    max-width: 450px;
-                    padding: 0.5rem;
-                    border-radius: 4px;
-                    border: 1px solid #ccc;
-                    font-size: calculate.$font-size-sm;
-                    box-sizing: border-box;
-
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        padding: 0.75rem;
-                    }
-
-                    &:focus {
-                        outline: none;
-                        border-color: #4a90e2;
-                    }
-                }
-            }
-
-            .rice-subsidy {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 2rem;
-
-                @media (max-width: calculate.$breakpoint-sm) {
-                    margin-top: 1rem;
-                }
-
-                label {
-                    font-weight: calculate.$font-weight-normal;
-                    font-size: calculate.$font-size-sm;
-                }
-
-                input {
-                    width: 100%;
-                    max-width: 450px;
-                    padding: 0.5rem;
-                    border-radius: 4px;
-                    border: 1px solid #ccc;
-                    font-size: calculate.$font-size-sm;
-                    box-sizing: border-box;
-
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        padding: 0.75rem;
-                    }
-
-                    &:focus {
-                        outline: none;
-                        border-color: #4a90e2;
-                    }
-                }
-            }
-
-            .uniform-allowance {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 2rem;
-
-                @media (max-width: calculate.$breakpoint-sm) {
-                    margin-top: 1rem;
-                }
-
-                label {
-                    font-weight: calculate.$font-weight-normal;
-                    font-size: calculate.$font-size-sm;
-                }
-
-                input {
-                    width: 100%;
-                    max-width: 450px;
-                    padding: 0.5rem;
-                    border-radius: 4px;
-                    border: 1px solid #ccc;
-                    font-size: calculate.$font-size-sm;
-                    box-sizing: border-box;
-
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        padding: 0.75rem;
-                    }
-
-                    &:focus {
-                        outline: none;
-                        border-color: #4a90e2;
-                    }
-                }
-            }
- 
-            .medical-assistance {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 2rem;
-
-                @media (max-width: calculate.$breakpoint-sm) {
-                    margin-top: 1rem;
-                }
-
-                label {
-                    font-weight: calculate.$font-weight-normal;
-                    font-size: calculate.$font-size-sm;
-                }
-
-                input {
-                    width: 100%;
-                    max-width: 450px;
-                    padding: 0.5rem;
-                    border-radius: 4px;
-                    border: 1px solid #ccc;
-                    font-size: calculate.$font-size-sm;
-                    box-sizing: border-box;
-
-                    @media (max-width: calculate.$breakpoint-sm) {
-                        padding: 0.75rem;
-                    }
-
-                    &:focus {
-                        outline: none;
-                        border-color: #4a90e2;
-                    }
-                }
-            }
-           
+        @media (max-width: calculate.$breakpoint-sm) {
+          padding: 0.75rem;
         }
 
-        .calculate-button {
-            display: flex;
-            margin-top: 2rem;    
-
-            @media (max-width: calculate.$breakpoint-sm) {
-                margin-top: 1rem;
-                width: 100%;
-                margin-left: 0;
-            }
-
-            .button {
-                text-align: center;  // Added for all screen sizes
-                
-                @media (max-width: calculate.$breakpoint-sm) {
-                    width: 100%;
-                }
-            }
+        &:focus {
+          outline: none;
+          border-color: #4a90e2;
         }
-}   
+      }
+    }
+
+    .uniform-allowance {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 2rem;
+
+      @media (max-width: calculate.$breakpoint-sm) {
+        margin-top: 1rem;
+      }
+
+      label {
+        font-weight: calculate.$font-weight-normal;
+        font-size: calculate.$font-size-sm;
+      }
+
+      input {
+        width: 100%;
+        max-width: 450px;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: calculate.$font-size-sm;
+        box-sizing: border-box;
+
+        @media (max-width: calculate.$breakpoint-sm) {
+          padding: 0.75rem;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #4a90e2;
+        }
+      }
+    }
+
+    .medical-assistance {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 2rem;
+
+      @media (max-width: calculate.$breakpoint-sm) {
+        margin-top: 1rem;
+      }
+
+      label {
+        font-weight: calculate.$font-weight-normal;
+        font-size: calculate.$font-size-sm;
+      }
+
+      input {
+        width: 100%;
+        max-width: 450px;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: calculate.$font-size-sm;
+        box-sizing: border-box;
+
+        @media (max-width: calculate.$breakpoint-sm) {
+          padding: 0.75rem;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #4a90e2;
+        }
+      }
+    }
+  }
+
+  .calculate-button {
+    display: flex;
+    margin-top: 2rem;
+
+    @media (max-width: calculate.$breakpoint-sm) {
+      margin-top: 1rem;
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .button {
+      text-align: center; // Added for all screen sizes
+
+      @media (max-width: calculate.$breakpoint-sm) {
+        width: 100%;
+      }
+    }
+  }
+}

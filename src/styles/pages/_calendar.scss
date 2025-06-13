@@ -1,1129 +1,1136 @@
-@use '../utils/variables' as calendar;
+@use "../utils/variables" as calendar;
 
 $mobile: 360px;
 $tablet: 768px;
 $desktop: 1024px;
 
 .calendar-container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+  width: 100%;
+  min-height: calc(100vh - 6rem);
+  background: #ffffff;
+  padding: 2rem;
+  box-sizing: border-box;
+
+  @media (max-width: $tablet) {
+    padding: 1rem;
     margin-top: 4rem;
-    width: 100%;
-    min-height: calc(100vh - 6rem);
+  }
+
+  .calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
     background: #ffffff;
-    padding: 2rem;
-    box-sizing: border-box;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e0e0e0;
 
     @media (max-width: $tablet) {
-        padding: 1rem;
-        margin-top: 4rem;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem 0;
     }
 
-    .calendar-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 2rem;
-        background: #ffffff;
-        padding: 1rem 0;
-        border-bottom: 1px solid #e0e0e0;
+    @media (max-width: $mobile) {
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+    }
+
+    h1 {
+      color: #202124;
+      font-size: 2rem;
+      font-weight: 400;
+      margin: 0;
+      font-family: "Google Sans", "Helvetica Neue", sans-serif;
+
+      @media (max-width: $tablet) {
+        font-size: 1.5rem;
+      }
+
+      @media (max-width: $mobile) {
+        font-size: 1.25rem;
+      }
+    }
+
+    .calendar-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      @media (max-width: $tablet) {
+        gap: 0.5rem;
+      }
+
+      h2 {
+        color: #202124;
+        font-size: 1.375rem;
+        font-weight: 400;
+        margin: 0;
+        min-width: 200px;
+        text-align: center;
+        font-family: "Google Sans", "Helvetica Neue", sans-serif;
 
         @media (max-width: $tablet) {
-            flex-direction: column;
-            gap: 1rem;
-            padding: 1rem 0;
+          font-size: 1.125rem;
+          min-width: 160px;
         }
 
         @media (max-width: $mobile) {
-            gap: 0.75rem;
-            padding: 0.75rem 0;
+          font-size: 1rem;
+          min-width: 140px;
+        }
+      }
+
+      .nav-button {
+        background: #ffffff;
+        color: #5f6368;
+        border: 1px solid #dadce0;
+        padding: 8px 16px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #f8f9fa;
+          border-color: #dadce0;
+          box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3),
+            0 4px 8px 3px rgba(60, 64, 67, 0.15);
         }
 
-        h1 {
-            color: #202124;
-            font-size: 2rem;
+        &:active {
+          background: #f1f3f4;
+          box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+            0 1px 3px 1px rgba(60, 64, 67, 0.15);
+        }
+
+        @media (max-width: $tablet) {
+          padding: 6px 12px;
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    .today-button {
+      background: #ffffff;
+      color: #1a73e8;
+      border: 1px solid #dadce0;
+      padding: 8px 16px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #f8f9fa;
+        border-color: #1a73e8;
+        box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3),
+          0 4px 8px 3px rgba(60, 64, 67, 0.15);
+      }
+
+      &:active {
+        background: #e8f0fe;
+      }
+
+      @media (max-width: $tablet) {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  .calendar-content {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    background: #ffffff;
+    min-height: calc(100vh - 12rem);
+
+    @media (max-width: $desktop) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      min-height: auto;
+    }
+
+    @media (max-width: $tablet) {
+      gap: 1rem;
+      padding: 0;
+    }
+
+    @media (max-width: $mobile) {
+      gap: 0.5rem;
+    }
+
+    .calendar-grid-section {
+      width: 100%;
+      height: fit-content;
+
+      .calendar-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        background: calendar.$color-gray-600;
+        border-bottom: 1px solid #dadce0;
+        margin-bottom: 0;
+
+        .weekday {
+          background: calendar.$color-gray-600;
+          color: calendar.$color-gray-100;
+          padding: 1rem 0.5rem;
+          text-align: center;
+          font-weight: 500;
+          font-size: 0.6875rem;
+          letter-spacing: 0.8px;
+          text-transform: uppercase;
+          border-right: 1px solid rgba(255, 255, 255, 0.2);
+
+          &:last-child {
+            border-right: none;
+          }
+
+          @media (max-width: $tablet) {
+            padding: 0.75rem 0.25rem;
+            font-size: 0.625rem;
+          }
+        }
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        border: 1px solid #dadce0;
+        border-top: none;
+        width: 100%;
+
+        .calendar-day {
+          background: #ffffff;
+          min-height: 140px;
+          padding: 0.5rem;
+          display: flex;
+          flex-direction: column;
+          cursor: pointer;
+          border-right: 1px solid #dadce0;
+          border-bottom: 1px solid #dadce0;
+          transition: background-color 0.1s ease;
+
+          &:nth-child(7n) {
+            border-right: none;
+          }
+
+          @media (max-width: $desktop) {
+            min-height: 120px;
+            padding: 0.4rem;
+          }
+
+          @media (max-width: $tablet) {
+            min-height: 80px;
+            padding: 0.25rem;
+          }
+
+          @media (max-width: $mobile) {
+            min-height: 60px;
+            padding: 0.2rem;
+          }
+
+          &:hover:not(.empty) {
+            background: #f8f9fa;
+          }
+
+          &.empty {
+            background: #fafafa;
+            cursor: default;
+          }
+
+          &.today {
+            background: #e8f0fe;
+
+            .day-number {
+              background: #1a73e8;
+              color: #ffffff;
+              border-radius: 50%;
+              width: 24px;
+              height: 24px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 500;
+              font-size: 0.75rem;
+            }
+          }
+
+          &.selected {
+            background: #e8f0fe;
+            border: 2px solid #1a73e8;
+            margin: -1px;
+          }
+
+          .day-number {
+            font-size: 0.75rem;
             font-weight: 400;
-            margin: 0;
-            font-family: 'Google Sans', 'Helvetica Neue', sans-serif;
+            color: #202124;
+            margin-bottom: 0.25rem;
+            flex-shrink: 0;
+            width: fit-content;
 
             @media (max-width: $tablet) {
-                font-size: 1.5rem;
+              font-size: 0.6875rem;
+              margin-bottom: 0.125rem;
             }
 
             @media (max-width: $mobile) {
-                font-size: 1.25rem;
+              font-size: 0.625rem;
+              margin-bottom: 0.1rem;
             }
+          }
+
+          .day-events {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+
+            .event-dot {
+              color: #ffffff;
+              padding: 1px 4px;
+              border-radius: 2px;
+              font-size: 0.6875rem;
+              font-weight: 400;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              line-height: 1.2;
+              margin-bottom: 1px;
+
+              @media (max-width: $tablet) {
+                font-size: 0.625rem;
+                padding: 0px 2px;
+              }
+
+              @media (max-width: $mobile) {
+                font-size: 0.5rem;
+                padding: 0px 1px;
+                margin-bottom: 0.5px;
+              }
+            }
+
+            .more-events {
+              color: #5f6368;
+              font-size: 0.625rem;
+              font-weight: 400;
+              margin-top: 1px;
+            }
+          }
+        }
+      }
+    }
+
+    .right-panels {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+
+      @media (max-width: $desktop) {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      @media (max-width: $tablet) {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      @media (max-width: $mobile) {
+        gap: 0.5rem;
+      }
+    }
+
+    .sidebar {
+      background: #ffffff;
+      border: 1px solid #dadce0;
+      padding: 1rem;
+      min-width: 220px;
+
+      @media (max-width: $desktop) {
+        flex: 1;
+        min-width: auto;
+      }
+
+      @media (max-width: $tablet) {
+        padding: 0.75rem;
+        border-radius: 6px;
+      }
+
+      @media (max-width: $mobile) {
+        padding: 0.5rem;
+        border-radius: 4px;
+      }
+
+      .selected-date-panel {
+        .selected-date-panel-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+
+          .selected-date-panel-header-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
         }
 
-        .calendar-controls {
+        h3 {
+          color: #202124;
+          font-size: 1rem;
+          font-weight: 500;
+          margin-bottom: 1rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px solid #dadce0;
+          font-family: "Google Sans", "Helvetica Neue", sans-serif;
+        }
+
+        // Mini Calendar Styles
+        .mini-calendar {
+          margin-bottom: 1.5rem;
+
+          .mini-calendar-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0;
 
-            @media (max-width: $tablet) {
-                gap: 0.5rem;
+            h4 {
+              font-size: 0.875rem;
+              font-weight: 500;
+              color: #202124;
+              margin: 0;
+              flex: 1;
+              text-align: center;
             }
 
-            h2 {
-                color: #202124;
-                font-size: 1.375rem;
-                font-weight: 400;
-                margin: 0;
-                min-width: 200px;
-                text-align: center;
-                font-family: 'Google Sans', 'Helvetica Neue', sans-serif;
+            .mini-nav-button {
+              background: none;
+              border: none;
+              cursor: pointer;
+              color: #5f6368;
+              padding: 4px;
+              border-radius: 50%;
+              width: 24px;
+              height: 24px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
 
-                @media (max-width: $tablet) {
-                    font-size: 1.125rem;
-                    min-width: 160px;
-                }
-
-                @media (max-width: $mobile) {
-                    font-size: 1rem;
-                    min-width: 140px;
-                }
+              &:hover {
+                background: #f8f9fa;
+              }
             }
+          }
 
-            .nav-button {
+          .mini-calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            margin-bottom: 0.25rem;
+
+            .mini-weekday {
+              text-align: center;
+              font-size: 0.625rem;
+              color: #70757a;
+              font-weight: 500;
+              padding: 0.25rem;
+            }
+          }
+
+          .mini-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+
+            .mini-calendar-day {
+              background: #ffffff;
+              padding: 0.25rem;
+              text-align: center;
+              font-size: 0.75rem;
+              color: calendar.$color-gray-900;
+              cursor: pointer;
+              border-radius: 2px;
+              transition: background-color 0.1s ease;
+              min-height: 28px;
+              min-width: 28px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border: 1px solid #f0f0f0;
+
+              &:hover:not(.empty) {
+                background: #f8f9fa;
+              }
+
+              &.empty {
+                background: transparent;
+                border: none;
+                cursor: default;
+              }
+
+              &.today {
+                background: #1a73e8;
+                color: #ffffff;
+                font-weight: 500;
+                border-color: #1a73e8;
+              }
+
+              &.selected {
+                background: #e8f0fe;
+                color: #1a73e8;
+                font-weight: 500;
+                border-color: #1a73e8;
+              }
+
+              &.has-events {
+                position: relative;
+
+                &::after {
+                  content: "";
+                  position: absolute;
+                  bottom: 2px;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  width: 4px;
+                  height: 4px;
+                  background: #34a853;
+                  border-radius: 50%;
+                }
+
+                &.today::after {
+                  background: #ffffff;
+                }
+              }
+            }
+          }
+        }
+
+        // Events Section
+        .events-section {
+          h4 {
+            color: #202124;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            font-family: "Google Sans", "Helvetica Neue", sans-serif;
+          }
+
+          > p {
+            color: #5f6368;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+          }
+
+          .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+
+            .event-item {
+              display: flex;
+              align-items: center;
+              gap: 0.75rem;
+              background: #ffffff;
+              padding: 0.75rem;
+              border: 1px solid #dadce0;
+              border-radius: 4px;
+              transition: all 0.1s ease;
+
+              &:hover {
+                background: #f8f9fa;
+                border-color: #dadce0;
+              }
+
+              .event-priority-indicator {
+                width: 4px;
+                height: 40px;
+                border-radius: 2px;
+                flex-shrink: 0;
+              }
+
+              .event-details {
+                flex: 1;
+
+                .event-title {
+                  display: block;
+                  font-weight: 500;
+                  color: #202124;
+                  margin-bottom: 0.25rem;
+                  font-size: 0.875rem;
+                }
+
+                .event-time {
+                  display: block;
+                  font-size: 0.75rem;
+                  color: #5f6368;
+                  margin-bottom: 0.125rem;
+                }
+
+                .event-priority {
+                  display: block;
+                  font-size: 0.65rem;
+                  color: #70757a;
+                  text-transform: capitalize;
+                }
+              }
+
+              .remove-event {
                 background: #ffffff;
                 color: #5f6368;
                 border: 1px solid #dadce0;
-                padding: 8px 16px;
-                font-size: 0.875rem;
-                font-weight: 500;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
                 cursor: pointer;
-                transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                font-weight: 400;
+                transition: all 0.1s ease;
 
                 &:hover {
-                    background: #f8f9fa;
-                    border-color: #dadce0;
-                    box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+                  background: #f8f9fa;
+                  color: #ea4335;
+                  border-color: #ea4335;
                 }
-
-                &:active {
-                    background: #f1f3f4;
-                    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-                }
-
-                @media (max-width: $tablet) {
-                    padding: 6px 12px;
-                    font-size: 0.75rem;
-                }
+              }
             }
-        }
+          }
 
-        .today-button {
+          // Add Event Form
+          .add-event-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+
+            .event-input {
+              padding: 0.75rem;
+              border: 1px solid #dadce0;
+              border-radius: 4px;
+              font-size: 0.875rem;
+              font-family: inherit;
+              transition: border-color 0.2s ease;
+
+              &:focus {
+                outline: none;
+                border-color: #1a73e8;
+                box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+              }
+
+              &::placeholder {
+                color: #5f6368;
+              }
+            }
+
+            .time-inputs {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 0.5rem;
+
+              .time-input-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+
+                label {
+                  font-size: 0.75rem;
+                  color: #5f6368;
+                  font-weight: 500;
+                }
+
+                .event-time-input {
+                  padding: 0.5rem;
+                  border: 1px solid #dadce0;
+                  border-radius: 4px;
+                  font-size: 0.875rem;
+                  font-family: inherit;
+                  transition: border-color 0.2s ease;
+
+                  &:focus {
+                    outline: none;
+                    border-color: #1a73e8;
+                    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+                  }
+                }
+              }
+            }
+
+            .priority-selection {
+              display: flex;
+              flex-direction: column;
+              gap: 0.25rem;
+
+              label {
+                font-size: 0.75rem;
+                color: #5f6368;
+                font-weight: 500;
+              }
+
+              .custom-priority-dropdown {
+                position: relative;
+
+                .priority-dropdown-trigger {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  padding: 0.5rem;
+                  border: 1px solid #dadce0;
+                  border-radius: 4px;
+                  background: #ffffff;
+                  cursor: pointer;
+                  transition: border-color 0.2s ease;
+
+                  &:hover {
+                    border-color: #1a73e8;
+                  }
+
+                  .selected-priority {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-size: 0.875rem;
+                    color: #202124;
+
+                    .priority-color-dot {
+                      width: 12px;
+                      height: 12px;
+                      border-radius: 50%;
+                      flex-shrink: 0;
+                    }
+                  }
+
+                  .dropdown-arrow {
+                    font-size: 0.75rem;
+                    color: #5f6368;
+                    transition: transform 0.2s ease;
+                  }
+
+                  &.open .dropdown-arrow {
+                    transform: rotate(180deg);
+                  }
+                }
+
+                .priority-dropdown-options {
+                  position: absolute;
+                  top: 100%;
+                  left: 0;
+                  right: 0;
+                  background: #ffffff;
+                  border: 1px solid #dadce0;
+                  border-top: none;
+                  border-radius: 0 0 4px 4px;
+                  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                  z-index: 1000;
+
+                  .priority-option {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.5rem;
+                    font-size: 0.875rem;
+                    color: #202124;
+                    cursor: pointer;
+                    transition: background-color 0.1s ease;
+
+                    &:hover {
+                      background: #f8f9fa;
+                    }
+
+                    &.selected {
+                      background: #e8f0fe;
+                      color: #1a73e8;
+                    }
+
+                    .priority-color-dot {
+                      width: 12px;
+                      height: 12px;
+                      border-radius: 50%;
+                      flex-shrink: 0;
+                    }
+                  }
+                }
+              }
+            }
+
+            .form-buttons {
+              display: flex;
+              gap: 0.5rem;
+            }
+          }
+
+          .add-event-btn {
+            background: #1a73e8;
+            color: #ffffff;
+            border: none;
+            padding: 10px 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+              0 1px 3px 1px rgba(60, 64, 67, 0.15);
+
+            &:hover {
+              background: #1557b0;
+              box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3),
+                0 4px 8px 3px rgba(60, 64, 67, 0.15);
+            }
+
+            &:active {
+              background: #1043a3;
+              box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+                0 1px 3px 1px rgba(60, 64, 67, 0.15);
+            }
+          }
+
+          .cancel-btn {
             background: #ffffff;
-            color: #1a73e8;
+            color: #5f6368;
             border: 1px solid #dadce0;
             padding: 8px 16px;
             font-size: 0.875rem;
             font-weight: 500;
+            border-radius: 4px;
             cursor: pointer;
             transition: all 0.2s ease;
+            flex: 1;
 
             &:hover {
-                background: #f8f9fa;
-                border-color: #1a73e8;
-                box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+              background: #f8f9fa;
+              border-color: #dadce0;
             }
 
             &:active {
-                background: #e8f0fe;
+              background: #f1f3f4;
             }
-
-            @media (max-width: $tablet) {
-                padding: 6px 12px;
-                font-size: 0.75rem;
-            }
+          }
         }
+      }
     }
 
-    .calendar-content {
-        display: grid;
-        grid-template-columns: 1fr 320px;
-        gap: 2rem;
-        background: #ffffff;
-        min-height: calc(100vh - 12rem);
+    // Notes Panel
+    .notes-panel {
+      background: #ffffff;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
+      padding: 0.75rem;
+      width: 100%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 
-        @media (max-width: $desktop) {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            min-height: auto;
+      @media (max-width: $desktop) {
+        flex: 1;
+        min-width: auto;
+        max-width: none;
+      }
+
+      @media (max-width: $tablet) {
+        padding: 0.6rem;
+        border-radius: 4px;
+      }
+
+      @media (max-width: $mobile) {
+        padding: 0.5rem;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .notes-header {
+        margin-bottom: 0.75rem;
+
+        h3 {
+          color: #202124;
+          font-size: 0.875rem;
+          font-weight: 600;
+          margin: 0;
+          padding-bottom: 0.4rem;
+          border-bottom: 1px solid #e8e8e8;
+          font-family: "Google Sans", "Helvetica Neue", sans-serif;
+
+          @media (max-width: $tablet) {
+            font-size: 0.8rem;
+            padding-bottom: 0.35rem;
+          }
+
+          @media (max-width: $mobile) {
+            font-size: 0.75rem;
+            padding-bottom: 0.3rem;
+          }
         }
+      }
 
-        @media (max-width: $tablet) {
-            gap: 1rem;
-            padding: 0;
-        }
+      .notes-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
 
-        @media (max-width: $mobile) {
-            gap: 0.5rem;
-        }
+        .note-item {
+          background: #fafafa;
+          border: 1px solid #e8e8e8;
+          border-radius: 4px;
+          padding: 0.6rem;
+          transition: all 0.1s ease;
 
-        .calendar-grid-section {
-            width: 100%;
-            height: fit-content;
-            
-            .calendar-weekdays {
-                display: grid;
-                grid-template-columns: repeat(7, 1fr);
-                background: calendar.$color-gray-600;
-                border-bottom: 1px solid #dadce0;
-                margin-bottom: 0;
+          &:hover {
+            background: #f0f0f0;
+            border-color: #dadce0;
+          }
 
-                .weekday {
-                    background: calendar.$color-gray-600;
-                    color: calendar.$color-gray-100;
-                    padding: 1rem 0.5rem;
-                    text-align: center;
-                    font-weight: 500;
-                    font-size: 0.6875rem;
-                    letter-spacing: 0.8px;
-                    text-transform: uppercase;
-                    border-right: 1px solid rgba(255, 255, 255, 0.2);
+          @media (max-width: $tablet) {
+            padding: 0.5rem;
+            border-radius: 3px;
+          }
 
-                    &:last-child {
-                        border-right: none;
-                    }
+          @media (max-width: $mobile) {
+            padding: 0.4rem;
+            border-radius: 2px;
+          }
 
-                    @media (max-width: $tablet) {
-                        padding: 0.75rem 0.25rem;
-                        font-size: 0.625rem;
-                    }
-                }
+          .note-content {
+            h4 {
+              color: #202124;
+              font-size: 0.75rem;
+              font-weight: 600;
+              margin: 0 0 0.3rem 0;
+              line-height: 1.2;
+
+              @media (max-width: $mobile) {
+                font-size: 0.7rem;
+                margin: 0 0 0.25rem 0;
+              }
             }
 
-            .calendar-grid {
-                display: grid;
-                grid-template-columns: repeat(7, 1fr);
-                border: 1px solid #dadce0;
-                border-top: none;
-                width: 100%;
+            p {
+              color: #5f6368;
+              font-size: 0.7rem;
+              margin: 0;
+              line-height: 1.3;
+              display: -webkit-box;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+              line-clamp: 3;
+              overflow: hidden;
 
-                .calendar-day {
-                    background: #ffffff;
-                    min-height: 140px;
-                    padding: 0.5rem;
-                    display: flex;
-                    flex-direction: column;
-                    cursor: pointer;
-                    border-right: 1px solid #dadce0;
-                    border-bottom: 1px solid #dadce0;
-                    transition: background-color 0.1s ease;
-
-                    &:nth-child(7n) {
-                        border-right: none;
-                    }
-
-                    @media (max-width: $desktop) {
-                        min-height: 120px;
-                        padding: 0.4rem;
-                    }
-
-                    @media (max-width: $tablet) {
-                        min-height: 80px;
-                        padding: 0.25rem;
-                    }
-
-                    @media (max-width: $mobile) {
-                        min-height: 60px;
-                        padding: 0.2rem;
-                    }
-
-                    &:hover:not(.empty) {
-                        background: #f8f9fa;
-                    }
-
-                    &.empty {
-                        background: #fafafa;
-                        cursor: default;
-                    }
-
-                    &.today {
-                        background: #e8f0fe;
-
-                        .day-number {
-                            background: #1a73e8;
-                            color: #ffffff;
-                            border-radius: 50%;
-                            width: 24px;
-                            height: 24px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-weight: 500;
-                            font-size: 0.75rem;
-                        }
-                    }
-
-                    &.selected {
-                        background: #e8f0fe;
-                        border: 2px solid #1a73e8;
-                        margin: -1px;
-                    }
-
-                    .day-number {
-                        font-size: 0.75rem;
-                        font-weight: 400;
-                        color: #202124;
-                        margin-bottom: 0.25rem;
-                        flex-shrink: 0;
-                        width: fit-content;
-
-                        @media (max-width: $tablet) {
-                            font-size: 0.6875rem;
-                            margin-bottom: 0.125rem;
-                        }
-
-                        @media (max-width: $mobile) {
-                            font-size: 0.625rem;
-                            margin-bottom: 0.1rem;
-                        }
-                    }
-
-                    .day-events {
-                        flex: 1;
-                        display: flex;
-                        flex-direction: column;
-                        gap: 1px;
-
-                        .event-dot {
-                            color: #ffffff;
-                            padding: 1px 4px;
-                            border-radius: 2px;
-                            font-size: 0.6875rem;
-                            font-weight: 400;
-                            white-space: nowrap;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            line-height: 1.2;
-                            margin-bottom: 1px;
-
-                            @media (max-width: $tablet) {
-                                font-size: 0.625rem;
-                                padding: 0px 2px;
-                            }
-
-                            @media (max-width: $mobile) {
-                                font-size: 0.5rem;
-                                padding: 0px 1px;
-                                margin-bottom: 0.5px;
-                            }
-                        }
-
-                        .more-events {
-                            color: #5f6368;
-                            font-size: 0.625rem;
-                            font-weight: 400;
-                            margin-top: 1px;
-                        }
-                    }
-                }
+              @media (max-width: $mobile) {
+                font-size: 0.65rem;
+                -webkit-line-clamp: 2;
+              }
             }
-        }
+          }
 
-        .right-panels {
+          .note-actions {
+            display: flex;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+            justify-content: flex-end;
+
+            .edit-note-btn {
+              background: #ffffff;
+              color: #1a73e8;
+              border: 1px solid #dadce0;
+              padding: 2px 6px;
+              font-size: 0.65rem;
+              font-weight: 500;
+              border-radius: 3px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:hover {
+                background: #f8f9fa;
+                border-color: #1a73e8;
+              }
+            }
+
+            .remove-note-btn {
+              background: #ffffff;
+              color: #5f6368;
+              border: 1px solid #dadce0;
+              width: 18px;
+              height: 18px;
+              border-radius: 50%;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 11px;
+              font-weight: 400;
+              transition: all 0.1s ease;
+
+              &:hover {
+                background: #f8f9fa;
+                color: #ea4335;
+                border-color: #ea4335;
+              }
+            }
+          }
+
+          .edit-note-form {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            width: 100%;
+            gap: 0.5rem;
 
-            @media (max-width: $desktop) {
-                flex-direction: column;
-                gap: 1rem;
+            .note-input,
+            .note-textarea {
+              padding: 0.5rem;
+              border: 1px solid #dadce0;
+              border-radius: 3px;
+              font-size: 0.75rem;
+              font-family: inherit;
+              transition: border-color 0.2s ease;
+              resize: vertical;
+
+              &:focus {
+                outline: none;
+                border-color: #1a73e8;
+                box-shadow: 0 0 0 1px rgba(26, 115, 232, 0.2);
+              }
+
+              &::placeholder {
+                color: #5f6368;
+              }
             }
 
-            @media (max-width: $tablet) {
-                flex-direction: column;
-                gap: 0.75rem;
+            .note-textarea {
+              min-height: 40px;
             }
 
-            @media (max-width: $mobile) {
-                gap: 0.5rem;
+            .form-buttons {
+              display: flex;
+              gap: 0.3rem;
             }
+          }
+        }
+      }
+
+      .add-note-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+
+        .note-input,
+        .note-textarea {
+          padding: 0.5rem;
+          border: 1px solid #dadce0;
+          border-radius: 3px;
+          font-size: 0.75rem;
+          font-family: inherit;
+          transition: border-color 0.2s ease;
+          resize: vertical;
+
+          &:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 1px rgba(26, 115, 232, 0.2);
+          }
+
+          &::placeholder {
+            color: #5f6368;
+          }
         }
 
-        .sidebar {
-            background: #ffffff;
-            border: 1px solid #dadce0;
-            padding: 1rem;
-            min-width: 220px;
-
-            @media (max-width: $desktop) {
-                flex: 1;
-                min-width: auto;
-            }
-
-            @media (max-width: $tablet) {
-                padding: 0.75rem;
-                border-radius: 6px;
-            }
-
-            @media (max-width: $mobile) {
-                padding: 0.5rem;
-                border-radius: 4px;
-            }
-
-            .selected-date-panel {
-
-                .selected-date-panel-header {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    margin-bottom: 1rem;
-
-                    .selected-date-panel-header-button {
-                        background: none;
-                        border: none;
-                        cursor: pointer;
-                    }
-                }
-
-                h3 {
-                    color: #202124;
-                    font-size: 1rem;
-                    font-weight: 500;
-                    margin-bottom: 1rem;
-                    padding-bottom: 0.5rem;
-                    border-bottom: 1px solid #dadce0;
-                    font-family: 'Google Sans', 'Helvetica Neue', sans-serif;
-                }
-
-                                 // Mini Calendar Styles
-                 .mini-calendar {
-                     margin-bottom: 1.5rem;
-                     
-                     .mini-calendar-header {
-                         display: flex;
-                         align-items: center;
-                         justify-content: space-between;
-                         margin-bottom: 0.75rem;
-                         padding: 0.5rem 0;
-                         
-                         h4 {
-                             font-size: 0.875rem;
-                             font-weight: 500;
-                             color: #202124;
-                             margin: 0;
-                             flex: 1;
-                             text-align: center;
-                         }
-                        
-                        .mini-nav-button {
-                            background: none;
-                            border: none;
-                            cursor: pointer;
-                            color: #5f6368;
-                            padding: 4px;
-                            border-radius: 50%;
-                            width: 24px;
-                            height: 24px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            
-                            &:hover {
-                                background: #f8f9fa;
-                            }
-                        }
-                    }
-                    
-                    .mini-calendar-weekdays {
-                        display: grid;
-                        grid-template-columns: repeat(7, 1fr);
-                        gap: 1px;
-                        margin-bottom: 0.25rem;
-                        
-                        .mini-weekday {
-                            text-align: center;
-                            font-size: 0.625rem;
-                            color: #70757a;
-                            font-weight: 500;
-                            padding: 0.25rem;
-                        }
-                    }
-                    
-                                         .mini-calendar-grid {
-                         display: grid;
-                         grid-template-columns: repeat(7, 1fr);
-                         gap: 2px;
-                         
-                         .mini-calendar-day {
-                             background: #ffffff;
-                             padding: 0.25rem;
-                             text-align: center;
-                             font-size: 0.75rem;
-                             color: calendar.$color-gray-900;
-                             cursor: pointer;
-                             border-radius: 2px;
-                             transition: background-color 0.1s ease;
-                             min-height: 28px;
-                             min-width: 28px;
-                             display: flex;
-                             align-items: center;
-                             justify-content: center;
-                             border: 1px solid #f0f0f0;
-                            
-                            &:hover:not(.empty) {
-                                background: #f8f9fa;
-                            }
-                            
-                                                         &.empty {
-                                 background: transparent;
-                                 border: none;
-                                 cursor: default;
-                             }
-                             
-                             &.today {
-                                 background: #1a73e8;
-                                 color: #ffffff;
-                                 font-weight: 500;
-                                 border-color: #1a73e8;
-                             }
-                             
-                             &.selected {
-                                 background: #e8f0fe;
-                                 color: #1a73e8;
-                                 font-weight: 500;
-                                 border-color: #1a73e8;
-                             }
-                            
-                            &.has-events {
-                                position: relative;
-                                
-                                &::after {
-                                    content: '';
-                                    position: absolute;
-                                    bottom: 2px;
-                                    left: 50%;
-                                    transform: translateX(-50%);
-                                    width: 4px;
-                                    height: 4px;
-                                    background: #34a853;
-                                    border-radius: 50%;
-                                }
-                                
-                                &.today::after {
-                                    background: #ffffff;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Events Section
-                .events-section {
-                    h4 {
-                        color: #202124;
-                        font-size: 0.875rem;
-                        font-weight: 500;
-                        margin-bottom: 0.75rem;
-                        font-family: 'Google Sans', 'Helvetica Neue', sans-serif;
-                    }
-
-                    > p {
-                        color: #5f6368;
-                        font-size: 0.875rem;
-                        margin-bottom: 1rem;
-                    }
-
-                    .events-list {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 0.5rem;
-                        margin-bottom: 1rem;
-
-                        .event-item {
-                            display: flex;
-                            align-items: center;
-                            gap: 0.75rem;
-                            background: #ffffff;
-                            padding: 0.75rem;
-                            border: 1px solid #dadce0;
-                            border-radius: 4px;
-                            transition: all 0.1s ease;
-
-                            &:hover {
-                                background: #f8f9fa;
-                                border-color: #dadce0;
-                            }
-
-                            .event-priority-indicator {
-                                width: 4px;
-                                height: 40px;
-                                border-radius: 2px;
-                                flex-shrink: 0;
-                            }
-
-                            .event-details {
-                                flex: 1;
-
-                                .event-title {
-                                    display: block;
-                                    font-weight: 500;
-                                    color: #202124;
-                                    margin-bottom: 0.25rem;
-                                    font-size: 0.875rem;
-                                }
-
-                                .event-time {
-                                    display: block;
-                                    font-size: 0.75rem;
-                                    color: #5f6368;
-                                    margin-bottom: 0.125rem;
-                                }
-
-                                .event-priority {
-                                    display: block;
-                                    font-size: 0.65rem;
-                                    color: #70757a;
-                                    text-transform: capitalize;
-                                }
-                            }
-
-                            .remove-event {
-                                background: #ffffff;
-                                color: #5f6368;
-                                border: 1px solid #dadce0;
-                                width: 24px;
-                                height: 24px;
-                                border-radius: 50%;
-                                cursor: pointer;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                font-size: 14px;
-                                font-weight: 400;
-                                transition: all 0.1s ease;
-
-                                &:hover {
-                                    background: #f8f9fa;
-                                    color: #ea4335;
-                                    border-color: #ea4335;
-                                }
-                            }
-                        }
-                    }
-
-                    // Add Event Form
-                    .add-event-form {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 0.75rem;
-                        margin-bottom: 1rem;
-
-                        .event-input {
-                            padding: 0.75rem;
-                            border: 1px solid #dadce0;
-                            border-radius: 4px;
-                            font-size: 0.875rem;
-                            font-family: inherit;
-                            transition: border-color 0.2s ease;
-
-                            &:focus {
-                                outline: none;
-                                border-color: #1a73e8;
-                                box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
-                            }
-
-                            &::placeholder {
-                                color: #5f6368;
-                            }
-                        }
-
-                        .time-inputs {
-                            display: grid;
-                            grid-template-columns: 1fr 1fr;
-                            gap: 0.5rem;
-
-                            .time-input-group {
-                                display: flex;
-                                flex-direction: column;
-                                gap: 0.25rem;
-
-                                label {
-                                    font-size: 0.75rem;
-                                    color: #5f6368;
-                                    font-weight: 500;
-                                }
-
-                                .event-time-input {
-                                    padding: 0.5rem;
-                                    border: 1px solid #dadce0;
-                                    border-radius: 4px;
-                                    font-size: 0.875rem;
-                                    font-family: inherit;
-                                    transition: border-color 0.2s ease;
-
-                                    &:focus {
-                                        outline: none;
-                                        border-color: #1a73e8;
-                                        box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
-                                    }
-                                }
-                            }
-                        }
-
-                        .priority-selection {
-                            display: flex;
-                            flex-direction: column;
-                            gap: 0.25rem;
-
-                            label {
-                                font-size: 0.75rem;
-                                color: #5f6368;
-                                font-weight: 500;
-                            }
-
-                            .custom-priority-dropdown {
-                                position: relative;
-
-                                .priority-dropdown-trigger {
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: space-between;
-                                    padding: 0.5rem;
-                                    border: 1px solid #dadce0;
-                                    border-radius: 4px;
-                                    background: #ffffff;
-                                    cursor: pointer;
-                                    transition: border-color 0.2s ease;
-
-                                    &:hover {
-                                        border-color: #1a73e8;
-                                    }
-
-                                    .selected-priority {
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 0.5rem;
-                                        font-size: 0.875rem;
-                                        color: #202124;
-
-                                        .priority-color-dot {
-                                            width: 12px;
-                                            height: 12px;
-                                            border-radius: 50%;
-                                            flex-shrink: 0;
-                                        }
-                                    }
-
-                                    .dropdown-arrow {
-                                        font-size: 0.75rem;
-                                        color: #5f6368;
-                                        transition: transform 0.2s ease;
-                                    }
-
-                                    &.open .dropdown-arrow {
-                                        transform: rotate(180deg);
-                                    }
-                                }
-
-                                .priority-dropdown-options {
-                                    position: absolute;
-                                    top: 100%;
-                                    left: 0;
-                                    right: 0;
-                                    background: #ffffff;
-                                    border: 1px solid #dadce0;
-                                    border-top: none;
-                                    border-radius: 0 0 4px 4px;
-                                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                                    z-index: 1000;
-
-                                    .priority-option {
-                                        display: flex;
-                                        align-items: center;
-                                        gap: 0.5rem;
-                                        padding: 0.5rem;
-                                        font-size: 0.875rem;
-                                        color: #202124;
-                                        cursor: pointer;
-                                        transition: background-color 0.1s ease;
-
-                                        &:hover {
-                                            background: #f8f9fa;
-                                        }
-
-                                        &.selected {
-                                            background: #e8f0fe;
-                                            color: #1a73e8;
-                                        }
-
-                                        .priority-color-dot {
-                                            width: 12px;
-                                            height: 12px;
-                                            border-radius: 50%;
-                                            flex-shrink: 0;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        .form-buttons {
-                            display: flex;
-                            gap: 0.5rem;
-                        }
-                    }
-
-                    .add-event-btn {
-                        background: #1a73e8;
-                        color: #ffffff;
-                        border: none;
-                        padding: 10px 16px;
-                        font-size: 0.875rem;
-                        font-weight: 500;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        width: 100%;
-                        transition: all 0.2s ease;
-                        box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-
-                        &:hover {
-                            background: #1557b0;
-                            box-shadow: 0 1px 3px 0 rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
-                        }
-
-                        &:active {
-                            background: #1043a3;
-                            box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-                        }
-                    }
-
-                    .cancel-btn {
-                        background: #ffffff;
-                        color: #5f6368;
-                        border: 1px solid #dadce0;
-                        padding: 8px 16px;
-                        font-size: 0.875rem;
-                        font-weight: 500;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        transition: all 0.2s ease;
-                        flex: 1;
-
-                        &:hover {
-                            background: #f8f9fa;
-                            border-color: #dadce0;
-                        }
-
-                        &:active {
-                            background: #f1f3f4;
-                        }
-                    }
-                }
-            }
+        .note-textarea {
+          min-height: 40px;
         }
 
-                          // Notes Panel
-         .notes-panel {
-             background: #ffffff;
-             border: 1px solid #dadce0;
-             border-radius: 6px;
-             padding: 0.75rem;
-             width: 100%;
-             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-
-             @media (max-width: $desktop) {
-                 flex: 1;
-                 min-width: auto;
-                 max-width: none;
-             }
-
-             @media (max-width: $tablet) {
-                 padding: 0.6rem;
-                 border-radius: 4px;
-             }
-
-             @media (max-width: $mobile) {
-                 padding: 0.5rem;
-                 border-radius: 3px;
-                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-             }
-
-             .notes-header {
-                 margin-bottom: 0.75rem;
-                 
-                 h3 {
-                     color: #202124;
-                     font-size: 0.875rem;
-                     font-weight: 600;
-                     margin: 0;
-                     padding-bottom: 0.4rem;
-                     border-bottom: 1px solid #e8e8e8;
-                     font-family: 'Google Sans', 'Helvetica Neue', sans-serif;
-
-                     @media (max-width: $tablet) {
-                         font-size: 0.8rem;
-                         padding-bottom: 0.35rem;
-                     }
-
-                     @media (max-width: $mobile) {
-                         font-size: 0.75rem;
-                         padding-bottom: 0.3rem;
-                     }
-                 }
-             }
-
-             .notes-list {
-                 display: flex;
-                 flex-direction: column;
-                 gap: 0.5rem;
-                 margin-bottom: 0.75rem;
-
-                                      .note-item {
-                         background: #fafafa;
-                         border: 1px solid #e8e8e8;
-                         border-radius: 4px;
-                         padding: 0.6rem;
-                         transition: all 0.1s ease;
-
-                         &:hover {
-                             background: #f0f0f0;
-                             border-color: #dadce0;
-                         }
-
-                         @media (max-width: $tablet) {
-                             padding: 0.5rem;
-                             border-radius: 3px;
-                         }
-
-                         @media (max-width: $mobile) {
-                             padding: 0.4rem;
-                             border-radius: 2px;
-                         }
-
-                     .note-content {
-                         h4 {
-                             color: #202124;
-                             font-size: 0.75rem;
-                             font-weight: 600;
-                             margin: 0 0 0.3rem 0;
-                             line-height: 1.2;
-
-                             @media (max-width: $mobile) {
-                                 font-size: 0.7rem;
-                                 margin: 0 0 0.25rem 0;
-                             }
-                         }
-
-                         p {
-                             color: #5f6368;
-                             font-size: 0.7rem;
-                             margin: 0;
-                             line-height: 1.3;
-                             display: -webkit-box;
-                             -webkit-line-clamp: 3;
-                             -webkit-box-orient: vertical;
-                             line-clamp: 3;
-                             overflow: hidden;
-
-                             @media (max-width: $mobile) {
-                                 font-size: 0.65rem;
-                                 -webkit-line-clamp: 2;
-                             }
-                         }
-                     }
-
-                     .note-actions {
-                         display: flex;
-                         gap: 0.3rem;
-                         margin-top: 0.5rem;
-                         justify-content: flex-end;
-
-                         .edit-note-btn {
-                             background: #ffffff;
-                             color: #1a73e8;
-                             border: 1px solid #dadce0;
-                             padding: 2px 6px;
-                             font-size: 0.65rem;
-                             font-weight: 500;
-                             border-radius: 3px;
-                             cursor: pointer;
-                             transition: all 0.2s ease;
-
-                             &:hover {
-                                 background: #f8f9fa;
-                                 border-color: #1a73e8;
-                             }
-                         }
-
-                         .remove-note-btn {
-                             background: #ffffff;
-                             color: #5f6368;
-                             border: 1px solid #dadce0;
-                             width: 18px;
-                             height: 18px;
-                             border-radius: 50%;
-                             cursor: pointer;
-                             display: flex;
-                             align-items: center;
-                             justify-content: center;
-                             font-size: 11px;
-                             font-weight: 400;
-                             transition: all 0.1s ease;
-
-                             &:hover {
-                                 background: #f8f9fa;
-                                 color: #ea4335;
-                                 border-color: #ea4335;
-                             }
-                         }
-                     }
-
-                     .edit-note-form {
-                         display: flex;
-                         flex-direction: column;
-                         gap: 0.5rem;
-
-                         .note-input, .note-textarea {
-                             padding: 0.5rem;
-                             border: 1px solid #dadce0;
-                             border-radius: 3px;
-                             font-size: 0.75rem;
-                             font-family: inherit;
-                             transition: border-color 0.2s ease;
-                             resize: vertical;
-
-                             &:focus {
-                                 outline: none;
-                                 border-color: #1a73e8;
-                                 box-shadow: 0 0 0 1px rgba(26, 115, 232, 0.2);
-                             }
-
-                             &::placeholder {
-                                 color: #5f6368;
-                             }
-                         }
-
-                         .note-textarea {
-                             min-height: 40px;
-                         }
-
-                         .form-buttons {
-                             display: flex;
-                             gap: 0.3rem;
-                         }
-                     }
-                 }
-             }
-
-                         .add-note-form {
-                 display: flex;
-                 flex-direction: column;
-                 gap: 0.5rem;
-                 margin-bottom: 0.75rem;
-
-                 .note-input, .note-textarea {
-                     padding: 0.5rem;
-                     border: 1px solid #dadce0;
-                     border-radius: 3px;
-                     font-size: 0.75rem;
-                     font-family: inherit;
-                     transition: border-color 0.2s ease;
-                     resize: vertical;
-
-                     &:focus {
-                         outline: none;
-                         border-color: #1a73e8;
-                         box-shadow: 0 0 0 1px rgba(26, 115, 232, 0.2);
-                     }
-
-                     &::placeholder {
-                         color: #5f6368;
-                     }
-                 }
-
-                 .note-textarea {
-                     min-height: 40px;
-                 }
-
-                 .form-buttons {
-                     display: flex;
-                     gap: 0.3rem;
-                 }
-             }
-
-             .add-note-btn {
-                 background: #1a73e8;
-                 color: #ffffff;
-                 border: none;
-                 padding: 6px 12px;
-                 font-size: 0.75rem;
-                 font-weight: 500;
-                 border-radius: 3px;
-                 cursor: pointer;
-                 width: 100%;
-                 transition: all 0.2s ease;
-                 box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-
-                 &:hover {
-                     background: #1557b0;
-                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-                 }
-
-                 &:active {
-                     background: #1043a3;
-                     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-                 }
-             }
-
-             .save-btn {
-                 background: #34a853;
-                 color: #ffffff;
-                 border: none;
-                 padding: 4px 8px;
-                 font-size: 0.7rem;
-                 font-weight: 500;
-                 border-radius: 3px;
-                 cursor: pointer;
-                 transition: all 0.2s ease;
-                 flex: 1;
-
-                 &:hover {
-                     background: #2d8f44;
-                 }
-
-                 &:active {
-                     background: #2a7a3e;
-                 }
-             }
-
-             .cancel-btn {
-                 background: #ffffff;
-                 color: #5f6368;
-                 border: 1px solid #dadce0;
-                 padding: 4px 8px;
-                 font-size: 0.7rem;
-                 font-weight: 500;
-                 border-radius: 3px;
-                 cursor: pointer;
-                 transition: all 0.2s ease;
-                 flex: 1;
-
-                 &:hover {
-                     background: #f8f9fa;
-                     border-color: #dadce0;
-                 }
-
-                 &:active {
-                     background: #f1f3f4;
-                 }
-             }
+        .form-buttons {
+          display: flex;
+          gap: 0.3rem;
         }
+      }
+
+      .add-note-btn {
+        background: #1a73e8;
+        color: #ffffff;
+        border: none;
+        padding: 6px 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        border-radius: 3px;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          background: #1557b0;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        &:active {
+          background: #1043a3;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      .save-btn {
+        background: #34a853;
+        color: #ffffff;
+        border: none;
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex: 1;
+
+        &:hover {
+          background: #2d8f44;
+        }
+
+        &:active {
+          background: #2a7a3e;
+        }
+      }
+
+      .cancel-btn {
+        background: #ffffff;
+        color: #5f6368;
+        border: 1px solid #dadce0;
+        padding: 4px 8px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex: 1;
+
+        &:hover {
+          background: #f8f9fa;
+          border-color: #dadce0;
+        }
+
+        &:active {
+          background: #f1f3f4;
+        }
+      }
     }
+  }
 }
 
 // Animations
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -448,7 +448,8 @@ $desktop: 1024px;
       }
     }
 
-    input, select {
+    input,
+    select {
       &.error {
         border-color: addemployment.$color-danger;
         &:focus {

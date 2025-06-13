@@ -1,4 +1,4 @@
-@use '../utils/variables' as button;
+@use "../utils/variables" as button;
 
 $mobile: 360px;
 $tablet: 768px;
@@ -108,7 +108,7 @@ $desktop: 1024px;
     pointer-events: none;
 
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       top: 50%;
       left: 50%;

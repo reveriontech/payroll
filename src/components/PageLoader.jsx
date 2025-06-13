@@ -43,7 +43,6 @@ const PageLoader = () => {
           <path d="M32 16a16 16 0 0 1 16 16" stroke="#222" strokeWidth="6" fill="none" strokeLinecap="round"/>
           <path d="M48 32a16 16 0 0 1-16 16" stroke="#222" strokeWidth="6" fill="none" strokeLinecap="round"/>
         </svg>
-        <span>Loading...</span>
       </div>
     </div>
   );
