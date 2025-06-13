@@ -14,11 +14,33 @@ $desktop: 1024px;
     background-color: landing.$color-gray-900;
     color: landing.$color-white;
     gap: 2rem;
+    padding: 1rem;
 
     .landing-title {
         font-size: landing.$font-size-4xl;
         font-weight: landing.$font-weight-normal;
         color: landing.$color-white;
         margin-bottom: 2rem;
+        text-align: center;
+
+        @media (max-width: $mobile) {
+            font-size: landing.$font-size-2xl;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: #{$mobile + 1}) and (max-width: $tablet) {
+            font-size: landing.$font-size-3xl;
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    @media (max-width: $mobile) {
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    @media (min-width: #{$mobile + 1}) and (max-width: $tablet) {
+        gap: 1.5rem;
+        padding: 0.75rem;
     }
 }
