@@ -290,8 +290,19 @@ $desktop: 1024px;
         text-align: center;
         font-weight: sidebar.$font-weight-normal;
         width: auto;
+
+        @media (max-width: sidebar.$breakpoint-sm) {
+            bottom: 0.5rem;
+            left: 0.5rem;
+            right: 0.5rem;
+            width: 100%;
+        }
         
         .logout-button-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             width: 100%;
             font-size: sidebar.$font-size-sm;
             font-weight: sidebar.$font-weight-normal;
@@ -303,6 +314,13 @@ $desktop: 1024px;
             cursor: pointer;
             border-radius: 0.5rem;
             transition: all 0.3s ease;
+
+            svg {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+            }
 
             &:hover {
                 background-color: sidebar.$color-gray-600;

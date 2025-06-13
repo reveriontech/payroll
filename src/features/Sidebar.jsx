@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../styles/features/_sidebar.scss'
 import { Link } from 'react-router-dom'
 import { useSidebar } from '../context/SidebarContext'
-import { MdDashboard, MdPeople, MdCalculate, MdDescription, MdPersonAdd, MdClose, MdCalendarMonth } from 'react-icons/md'
+import { MdDashboard, MdPeople, MdCalculate, MdDescription, MdPersonAdd, MdClose, MdCalendarMonth, MdLogout } from 'react-icons/md'
 
 const Sidebar = () => {
   const { isCollapsed, isMobileOpen, isMobile, closeMobileSidebar, toggleSidebar } = useSidebar()
@@ -103,9 +103,13 @@ const Sidebar = () => {
                     ))}
                 </ul>
             </div>
-
+                    
+            {/* This is for logout button */}
             <div className='logout-button'>
-              <button className='logout-button-text'>Logout</button>
+              <button className='logout-button-text'>
+                <MdLogout />
+                {(!shouldShowCollapsed || isMobileOpen) && <span className='logout-text'>Logout</span>}
+              </button>
             </div>
         
     </section>
