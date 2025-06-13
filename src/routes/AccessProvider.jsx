@@ -28,7 +28,7 @@ function AccessProvider({ children }) {
         }
     
         if (userDetails &&
-            (userDetails.usertype === 'User' || userDetails.usertype === 'Admin')) {
+            (userDetails.usertype === 'User' || userDetails.usertype === 'Admin' || userDetails === 'Employee')) {
             if (homeRoutes.includes(location.pathname)) {
                 return children
             } else {

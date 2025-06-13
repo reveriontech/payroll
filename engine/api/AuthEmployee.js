@@ -1,15 +1,15 @@
 import supabase from '../supabase/SupabaseClient.js'
 
-export const users = async (req, res) => {
+export const employee = async (req, res) => {
 
     try {
         
-        const { data: usersEmail, error: usersEmailError } = await supabase
+        const { data: usersEmployee, error: usersEmployeeError } = await supabase
             .from('users')
-            .select('id, username')
-            .in('usertype', ['User', 'Employee'])
+            .select('id, fullname, username, gender, sss, hdmf, philhealth, tin, salary')
+            .eq('usertype', 'Employee')
 
-        if (usersEmailError) {
+        if (usersEmployeeError) {
             return res.status(401).json({
                 error: 'User details not found.',
                 success: false
@@ -19,7 +19,7 @@ export const users = async (req, res) => {
         return res.status(200).json({
             success: true,
             data: {
-                usersEmail
+                usersEmployee
             }
         })
 

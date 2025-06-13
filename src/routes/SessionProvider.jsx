@@ -49,7 +49,7 @@ export const SessionProvider = ({ children }) => {
 
                 const { usertype } = result.data.userDetails
 
-                        if ((usertype === 'User' || usertype === 'Admin')) {
+                        if ((usertype === 'User' || usertype === 'Admin' || usertype === 'Employee')) {
                             if (homeRoutes.includes(location.pathname)) {
                                 navigate(homeRoutes)
                             } else {

@@ -28,7 +28,7 @@ function HomeProvider({ children }) {
         }
     
         if (userDetails &&
-            (userDetails.usertype === 'User' || userDetails.usertype === 'Admin')) {
+            (userDetails.usertype === 'User' || userDetails.usertype === 'Admin' || userDetails.usertype === 'Employee')) {
             if (homeRoutes.includes(location.pathname)) {
                 return children
             } else {
