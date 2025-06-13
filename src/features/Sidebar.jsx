@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import '../styles/features/_sidebar.scss'
 import { Link } from 'react-router-dom'
 import { useSidebar } from '../context/SidebarContext'
-import { MdDashboard, MdPeople, MdCalculate, MdDescription, MdPersonAdd, MdClose, MdCalendarMonth, MdLogout } from 'react-icons/md'
+import { MdDashboard, MdPeople, MdCalculate, MdDescription, MdPersonAdd, MdClose, MdCalendarMonth } from 'react-icons/md'
+import supabase from '../supabase/supabaseClient'
 
 const Sidebar = () => {
   const { isCollapsed, isMobileOpen, isMobile, closeMobileSidebar, toggleSidebar } = useSidebar()
   const [isTablet, setIsTablet] = useState(false)
+  const [isSigningOut, setIsSigningOut] = useState(false)
 
   // Check if we're on tablet
   useEffect(() => {
@@ -33,6 +35,37 @@ const Sidebar = () => {
       toggleSidebar() // For tablet: collapse the sidebar
     }
   }
+
+  const handleSignOut = async () => {
+
+        setIsSigningOut(true)
+
+        try {
+
+            const { data: { session: supabaseSession } } = await supabase.auth.getSession()
+    
+            if (!supabaseSession) {
+                if (location.pathname !== '/') {
+                    navigate('/')
+                }
+                return
+            } else {
+                await supabase.auth.signOut()
+                
+                sessionStorage.clear()
+                localStorage.clear()
+                
+                window.location.reload()
+            }
+
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setTimeout(() => 
+                setIsSigningOut(false), 180
+            )    
+        }
+    }
 
   const menuItems = [
     { icon: <MdDashboard />, text: 'Dashboard', path: '/dashboard' },
@@ -103,13 +136,9 @@ const Sidebar = () => {
                     ))}
                 </ul>
             </div>
-                    
-            {/* This is for logout button */}
+
             <div className='logout-button'>
-              <button className='logout-button-text'>
-                <MdLogout />
-                {(!shouldShowCollapsed || isMobileOpen) && <span className='logout-text'>Logout</span>}
-              </button>
+              <button className='logout-button-text' onClick={handleSignOut}>{isSigningOut ? ('Signing Out') : ('Sign Out')}</button>
             </div>
         
     </section>
