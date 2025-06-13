@@ -51,16 +51,41 @@ $desktop: 1024px;
     align-items: center;
     margin-bottom: 2rem;
 
+    // Responsive: stack vertically on tablet/mobile
+    @media (max-width: addemployment.$breakpoint-lg) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+
     .add-employment-header {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
 
-    .add-employment-search {  
+    .add-employment-search {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      min-width: 220px;
+      max-width: 350px;
+      width: 100%;
+
+      // Responsive: full width on mobile/tablet
+      @media (max-width: addemployment.$breakpoint-lg) {
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+      }
+
+      .dropdown {
+        width: 100%;
+        min-width: 0;
+      }
+      h4 {
+        margin-bottom: 0.25rem;
+      }
     }
   }
 
@@ -86,7 +111,7 @@ $desktop: 1024px;
     .container-left {
       display: flex;
       flex-direction: column;
-      margin-top: 2rem;
+      margin-top: 0.5rem;
       flex: 1;
       min-width: 0;
 
@@ -270,7 +295,7 @@ $desktop: 1024px;
     .container-right {
       display: flex;
       flex-direction: column;
-      margin-top: 2rem;
+      margin-top: 0.5rem;
       flex: 1;
       min-width: 0;
 
