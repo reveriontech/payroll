@@ -44,6 +44,26 @@ $desktop: 1024px;
     }
   }
 
+  .add-employment-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .add-employment-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .add-employment-search {  
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
   .form-container {
     display: flex;
     flex-direction: row;
@@ -83,6 +103,37 @@ $desktop: 1024px;
         @media (max-width: addemployment.$breakpoint-sm) {
           margin-top: 1rem;
         }
+
+        label {
+          font-weight: addemployment.$font-weight-normal;
+          font-size: addemployment.$font-size-sm;
+        }
+
+        input {
+          width: 100%;
+          max-width: 450px;
+          padding: 0.5rem;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+          font-size: addemployment.$font-size-sm;
+          box-sizing: border-box;
+
+          @media (max-width: addemployment.$breakpoint-sm) {
+            padding: 0.75rem;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #4a90e2;
+          }
+        }
+      }
+
+      .gmail {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 2rem;
 
         label {
           font-weight: addemployment.$font-weight-normal;
@@ -371,6 +422,23 @@ $desktop: 1024px;
         }
       }
     }
+
+    input, select {
+      &.error {
+        border-color: addemployment.$color-danger;
+        &:focus {
+          border-color: addemployment.$color-danger;
+          box-shadow: 0 0 0 2px rgba(addemployment.$color-danger, 0.2);
+        }
+      }
+    }
+  }
+
+  .error-message {
+    color: addemployment.$color-danger;
+    font-size: addemployment.$font-size-sm;
+    margin-top: addemployment.$spacing-xs;
+    display: block;
   }
 
   .calculate-button {
@@ -388,51 +456,6 @@ $desktop: 1024px;
 
       @media (max-width: addemployment.$breakpoint-sm) {
         width: 100%;
-      }
-    }
-  }
-
-  .profile-image {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 2rem;
-
-    @media (max-width: addemployment.$breakpoint-sm) {
-      margin-top: 1rem;
-    }
-
-    label {
-      font-weight: addemployment.$font-weight-normal;
-      font-size: addemployment.$font-size-sm;
-    }
-
-    input[type="file"] {
-      width: 100%;
-      max-width: 450px;
-      padding: 0.5rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      font-size: addemployment.$font-size-sm;
-      box-sizing: border-box;
-
-      &::-webkit-file-upload-button {
-        padding: 0.5rem 1rem;
-        margin-right: 1rem;
-        border: none;
-        border-radius: 4px;
-        background-color: addemployment.$color-gray-600;
-        color: white;
-        cursor: pointer;
-      }
-
-      @media (max-width: addemployment.$breakpoint-sm) {
-        padding: 0.75rem;
-      }
-
-      &:focus {
-        outline: none;
-        border-color: #4a90e2;
       }
     }
   }
