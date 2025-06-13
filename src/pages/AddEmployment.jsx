@@ -146,9 +146,7 @@ const AddEmployment = () => {
         const { data, error } = await supabase
           .from('users')
           .update({
-            id: id,
             fullname: fullname,
-            username: username,
             gender: gender,
             sss: sss,
             hdmf: hdmf,
