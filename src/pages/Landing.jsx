@@ -1,14 +1,14 @@
 import React from 'react'
 import Button from '../utils/Button'
 import '../styles/pages/_landing.scss'
-import GoogleAuth from '../functions/GoogleAuth'
+import GoogleAuthFunctions from '../functions/GoogleAuthFunctions'
 
 const Landing = () => {
 
     const {
         isGoogleSigningIn,
         handleGoogleSignIn
-    } = GoogleAuth()
+    } = GoogleAuthFunctions()
 
   return (
     <section className='landing'>

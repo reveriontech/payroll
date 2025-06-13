@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import supabaseApi from '../supabase/supabaseApi'
 
-function GoogleAuth() {    
+function GoogleAuthFunctions() {    
 
     const [isGoogleSigningIn, setIsGoogleSigningIn] = useState(false)
     
@@ -39,4 +39,4 @@ function GoogleAuth() {
 
 }
 
-export default GoogleAuth
+export default GoogleAuthFunctions

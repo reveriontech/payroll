@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSidebar } from '../context/SidebarContext'
 import '../styles/pages/_add-employment.scss'
 import Button from '../utils/Button'
 import Dropdown from '../utils/Dropdown'
 import { useForm } from 'react-hook-form'
+import FetchUsersEmailFunctions from '../functions/FetchUsersEmailFunctions'
 
 const AddEmployment = () => {
 
@@ -13,39 +14,16 @@ const AddEmployment = () => {
   // Add error state
   const [errors, setErrors] = useState({})
 
-  // Temporary employee data array
-  const employeeOptions = [
-    { 
-      value: 'john.doe@example.com', 
-      label: 'john.doe@example.com',
-      fullName: 'John Doe',
-      gender: 'male'
-    },
-    { 
-      value: 'jane.smith@example.com', 
-      label: 'jane.smith@example.com',
-      fullName: 'Jane Smith',
-      gender: 'female'
-    },
-    { 
-      value: 'mike.johnson@example.com', 
-      label: 'mike.johnson@example.com',
-      fullName: 'Mike Johnson',
-      gender: 'male'
-    },
-    { 
-      value: 'sarah.williams@example.com', 
-      label: 'sarah.williams@example.com',
-      fullName: 'Sarah Williams',
-      gender: 'female'
-    },
-    { 
-      value: 'david.brown@example.com', 
-      label: 'david.brown@example.com',
-      fullName: 'David Brown',
-      gender: 'male'
-    }
-  ]
+  const {
+    usersEmail,
+    fetchUsersEmail 
+  } = FetchUsersEmailFunctions()
+
+  useEffect(() => {
+    fetchUsersEmail()
+  }, [])
+
+  const employeeOptions = usersEmail
 
   const handleAddEmployment = () => {
     console.log('Add Employment')
@@ -59,7 +37,7 @@ const AddEmployment = () => {
     sss: '',
     hdmf: '',
     philhealth: '',
-    basicSalary: '40000.00',
+    basicSalary: '40,000.00',
     gmail: ''
   });
 
@@ -79,9 +57,9 @@ const AddEmployment = () => {
     if (employee) {
       setFormData(prev => ({
         ...prev,
-        fullName: employee.fullName,
-        gender: employee.gender,
-        gmail: employee.value
+        gmail: employee.fullName,
+        gender: '',
+        employeeId: employee.value
       }));
       // Clear errors for auto-filled fields
       setErrors(prev => ({
@@ -222,10 +200,9 @@ const AddEmployment = () => {
                       onChange={handleChange}
                       className={errors.gender ? 'error' : ''}
                     >
-                      <option value="">Select Gender</option>
+                      <option value="" disabled>Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
-                      <option value="other">Other</option>
                     </select>
                     {errors.gender && <span className="error-message">{errors.gender}</span>}
                   </div>
