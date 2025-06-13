@@ -276,4 +276,38 @@ $desktop: 1024px;
             }
         }
     }
+
+    .logout-button {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: sidebar.$color-white;
+        font-size: sidebar.$font-size-sm;
+        cursor: pointer;
+        text-align: center;
+        font-weight: sidebar.$font-weight-normal;
+        width: auto;
+        
+        .logout-button-text {
+            width: 100%;
+            font-size: sidebar.$font-size-sm;
+            font-weight: sidebar.$font-weight-normal;
+            color: sidebar.$color-white;
+            background: none;
+            border: none;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: sidebar.$color-gray-600;
+                color: sidebar.$color-white;
+            }
+        }
+    }
 }

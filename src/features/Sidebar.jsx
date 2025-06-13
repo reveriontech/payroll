@@ -103,6 +103,10 @@ const Sidebar = () => {
                     ))}
                 </ul>
             </div>
+
+            <div className='logout-button'>
+              <button className='logout-button-text'>Logout</button>
+            </div>
         
     </section>
     </>

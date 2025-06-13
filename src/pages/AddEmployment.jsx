@@ -82,7 +82,8 @@ const AddEmployment = () => {
       'basicSalary',
       'sss',
       'hdmf',
-      'philhealth'
+      'philhealth',
+      'tin'
     ];
 
     requiredFields.forEach(field => {
